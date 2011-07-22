@@ -24,7 +24,7 @@ if ($this->si_contact_error)
   $this->ctf_form_style = str_replace('display: none;','',$this->ctf_form_style);
 
 $string .= '
-<!-- Fast Secure Contact Form plugin '.$this->ctf_version.' - begin - http://www.FastSecureContactForm.com -->
+<!-- Fast Secure Contact Form plugin '.$this->ctf_version.' - begin - FastSecureContactForm.com -->
 <a name="FSContact'.$form_id_num.'" id="FSContact'.$form_id_num.'"></a>
 <div '.$this->ctf_form_style.'>
 ';
@@ -130,7 +130,7 @@ if (count($contacts) > 1) {
                 <select '.$this->ctf_select_style.' id="si_contact_CID'.$form_id_num.'" name="si_contact_CID" '.$this->ctf_aria_required.'>
 ';
     $string .= '                <option value="">';
-    $string .= ($si_contact_opt['title_select'] != '') ? esc_attr($si_contact_opt['title_select']) : esc_attr( __('Select', 'si-contact-form'));
+    $string .= ($si_contact_opt['title_select'] != '') ? $this->ctf_output_string($si_contact_opt['title_select']) : $this->ctf_output_string( __('Select', 'si-contact-form'));
     $string .= '</option>'."\n";
 
     if ( !isset($cid) && isset($_GET[$form_id_num .'mailto_id']) ) {
@@ -145,7 +145,7 @@ if (count($contacts) > 1) {
           if (!empty($cid) && $cid == $k) {
                     $selected = ' selected="selected"';
           }
-          $string .= '                <option value="' . esc_attr($k) . '"' . $selected . '>' . esc_attr($v['CONTACT']) . '</option>' . "\n";
+          $string .= '                <option value="' . $this->ctf_output_string($k) . '"' . $selected . '>' . $this->ctf_output_string($v['CONTACT']) . '</option>' . "\n";
           $selected = '';
       }
 
@@ -312,7 +312,8 @@ if($si_contact_opt['email_type'] != 'not_available' ) {
 
 if ($si_contact_opt['ex_fields_after_msg'] != 'true') {
      // are there any optional extra fields/
-     for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+
+     for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
         if ($si_contact_opt['ex_field'.$i.'_label'] != '') {
            // include the code to display extra fields
            include(WP_PLUGIN_DIR . '/si-contact-form/si-contact-form-ex-fields.php');
@@ -338,7 +339,7 @@ if($si_contact_opt['subject_type'] != 'not_available' ) {
 ';
 
     $string .= '               <option value="">';
-    $string .= ($si_contact_opt['title_select'] != '') ? esc_attr($si_contact_opt['title_select']) : esc_attr( __('Select', 'si-contact-form'));
+    $string .= ($si_contact_opt['title_select'] != '') ? $this->ctf_output_string($si_contact_opt['title_select']) : $this->ctf_output_string( __('Select', 'si-contact-form'));
     $string .= '</option>'."\n";
 
     if ( !isset($sid) && isset($_GET[$form_id_num .'subject_id']) ) {
@@ -353,7 +354,7 @@ if($si_contact_opt['subject_type'] != 'not_available' ) {
           if (!empty($sid) && $sid == $k) {
                     $selected = ' selected="selected"';
           }
-          $string .= '                        <option value="' . esc_attr($k) . '"' . $selected . '>' . esc_attr($v) . '</option>' . "\n";
+          $string .= '                        <option value="' . $this->ctf_output_string($k) . '"' . $selected . '>' . $this->ctf_output_string($v) . '</option>' . "\n";
           $selected = '';
       }
 
@@ -398,7 +399,7 @@ $string .= '
 
 if ($si_contact_opt['ex_fields_after_msg'] == 'true') {
      // are there any optional extra fields/
-     for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+     for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
         if ($si_contact_opt['ex_field'.$i.'_label'] != '') {
            // include the code to display extra fields
            include(WP_PLUGIN_DIR . '/si-contact-form/si-contact-form-ex-fields.php');
@@ -420,18 +421,18 @@ $string .= '
 <div '.$this->ctf_submit_div_style.'>
   <input type="hidden" name="si_contact_action" value="send" />
   <input type="hidden" name="si_contact_form_id" value="'.$form_id_num.'" />
-  <input type="submit" '.$this->ctf_submit_style.' value="';
-     $string .= ($si_contact_opt['title_submit'] != '') ? esc_attr( $si_contact_opt['title_submit'] ) : esc_attr( __('Submit', 'si-contact-form'));
+  <input type="submit" id="fsc-submit" '.$this->ctf_submit_style.' value="';
+     $string .= ($si_contact_opt['title_submit'] != '') ? $this->ctf_output_string( $si_contact_opt['title_submit'] ) : $this->ctf_output_string( __('Submit', 'si-contact-form'));
      $string .= '" ';
    if($si_contact_opt['enable_areyousure'] == 'true') {
      $string .= ' onclick="return confirm(\'';
-     $string .= ($si_contact_opt['title_areyousure'] != '') ? esc_attr(addslashes($si_contact_opt['title_areyousure'] )) : esc_attr(addslashes( __('Are you sure?', 'si-contact-form')));
+     $string .= ($si_contact_opt['title_areyousure'] != '') ? $this->ctf_output_string(addslashes($si_contact_opt['title_areyousure'] )) : $this->ctf_output_string(addslashes( __('Are you sure?', 'si-contact-form')));
      $string .= '\')" ';
     }
      $string .= '/> ';
    if($si_contact_opt['enable_reset'] == 'true') {
-     $string .= '<input type="reset" '.$this->ctf_reset_style.' value="';
-     $string .= ($si_contact_opt['title_reset'] != '') ? esc_attr( $si_contact_opt['title_reset'] ) : esc_attr( __('Reset', 'si-contact-form'));
+     $string .= '<input type="reset" id="fsc-reset" '.$this->ctf_reset_style.' value="';
+     $string .= ($si_contact_opt['title_reset'] != '') ? $this->ctf_output_string( $si_contact_opt['title_reset'] ) : $this->ctf_output_string( __('Reset', 'si-contact-form'));
      $string .= '" onclick="return confirm(\'';
      $string .= addslashes(__('Do you really want to reset the form?', 'si-contact-form'));
      $string .= '\')"  />'."\n";
@@ -453,6 +454,6 @@ $string .= '
 <p '.$this->ctf_powered_by_style.'>'.__('Powered by', 'si-contact-form'). ' <a href="http://wordpress.org/extend/plugins/si-contact-form/">'.__('Fast Secure Contact Form', 'si-contact-form'). '</a></p>
 ';
 }
-$string .= '<!-- Fast Secure Contact Form plugin '.$this->ctf_version.' - end - http://www.FastSecureContactForm.com -->
+$string .= '<!-- Fast Secure Contact Form plugin '.$this->ctf_version.' - end - FastSecureContactForm.com -->
 ';
 ?>

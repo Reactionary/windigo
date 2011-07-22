@@ -10,7 +10,7 @@ http://www.642weather.com/weather/scripts.php
       $ex_fieldset = 0;
       $printed_tooltip_filetypes = 0;
       $ex_loop_cnt = 1;
-      for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+      for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
         if ($si_contact_opt['ex_field'.$i.'_label'] != '' || $si_contact_opt['ex_field'.$i.'_type'] == 'fieldset-close') {
            $ex_req_field_ind = ($si_contact_opt['ex_field'.$i.'_req'] == 'true') ? $req_field_ind : '';
            $ex_req_field_aria = ($si_contact_opt['ex_field'.$i.'_req'] == 'true') ? $this->ctf_aria_required : '';
@@ -518,15 +518,15 @@ $string .= '        </div>
           break;
              case 'date':
             $cal_date_array = array(
-'mm/dd/yyyy' => esc_attr(__('mm/dd/yyyy', 'si-contact-form')),
-'dd/mm/yyyy' => esc_attr(__('dd/mm/yyyy', 'si-contact-form')),
-'mm-dd-yyyy' => esc_attr(__('mm-dd-yyyy', 'si-contact-form')),
-'dd-mm-yyyy' => esc_attr(__('dd-mm-yyyy', 'si-contact-form')),
-'mm.dd.yyyy' => esc_attr(__('mm.dd.yyyy', 'si-contact-form')),
-'dd.mm.yyyy' => esc_attr(__('dd.mm.yyyy', 'si-contact-form')),
-'yyyy/mm/dd' => esc_attr(__('yyyy/mm/dd', 'si-contact-form')),
-'yyyy-mm-dd' => esc_attr(__('yyyy-mm-dd', 'si-contact-form')),
-'yyyy.mm.dd' => esc_attr(__('yyyy.mm.dd', 'si-contact-form')),
+'mm/dd/yyyy' => $this->ctf_output_string(__('mm/dd/yyyy', 'si-contact-form')),
+'dd/mm/yyyy' => $this->ctf_output_string(__('dd/mm/yyyy', 'si-contact-form')),
+'mm-dd-yyyy' => $this->ctf_output_string(__('mm-dd-yyyy', 'si-contact-form')),
+'dd-mm-yyyy' => $this->ctf_output_string(__('dd-mm-yyyy', 'si-contact-form')),
+'mm.dd.yyyy' => $this->ctf_output_string(__('mm.dd.yyyy', 'si-contact-form')),
+'dd.mm.yyyy' => $this->ctf_output_string(__('dd.mm.yyyy', 'si-contact-form')),
+'yyyy/mm/dd' => $this->ctf_output_string(__('yyyy/mm/dd', 'si-contact-form')),
+'yyyy-mm-dd' => $this->ctf_output_string(__('yyyy-mm-dd', 'si-contact-form')),
+'yyyy.mm.dd' => $this->ctf_output_string(__('yyyy.mm.dd', 'si-contact-form')),
 );
         if($si_contact_opt['ex_field'.$i.'_notes'] != '') {
            $string .=  $this->ctf_notes($si_contact_opt['ex_field'.$i.'_notes']);
@@ -573,7 +573,7 @@ $exf_opts_array = array();
 $selected = '';
 // hours
 $tf_hours = ($si_contact_opt['time_format'] == '24') ? '23' : '12';
-for ($ii = 1; $ii <= $tf_hours; $ii++) {
+for ($ii = ($si_contact_opt['time_format'] == '24') ? 0 : 1; $ii <= $tf_hours; $ii++) {
  $ii = sprintf("%02d",$ii);
  if (${'ex_field'.$i.'h'} != '') {
     if (${'ex_field'.$i.'h'} == "$ii") {
@@ -609,7 +609,7 @@ $string .= '<select ';
         ';
 $selected = '';
 // am/pm
-foreach (array(esc_attr(__('AM', 'si-contact-form')), esc_attr(__('PM', 'si-contact-form')) ) as $k) {
+foreach (array($this->ctf_output_string(__('AM', 'si-contact-form')), $this->ctf_output_string(__('PM', 'si-contact-form')) ) as $k) {
  if (${'ex_field'.$i.'ap'} != '') {
     if (${'ex_field'.$i.'ap'} == "$k") {
       $selected = ' selected="selected"';
@@ -637,7 +637,7 @@ $string .= '
 
  // how many extra fields are date fields?
      $ex_date_found = array();
-     for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+     for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
         if ($si_contact_opt['ex_field'.$i.'_label'] != '' && $si_contact_opt['ex_field'.$i.'_type'] == 'date') {
           $ex_date_found[$i] = $i;
         }

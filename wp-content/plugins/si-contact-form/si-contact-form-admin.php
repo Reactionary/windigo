@@ -194,7 +194,7 @@ http://www.642weather.com/weather/scripts.php
 
 		// Output the response
 		?>
-<div id="message" class="updated fade"><p><strong><?php _e('Test Message Sent', 'si-contact-form'); echo '<br />'.$si_contact_opt['php_mailer_enable']; echo ' '.$subject; ?></strong></p>
+<div id="message" class="updated"><p><strong><?php _e('Test Message Sent', 'si-contact-form'); echo '<br />'.$si_contact_opt['php_mailer_enable']; echo ' '.$subject; ?></strong></p>
 <?php if ($result != true) { ?>
 <p><?php _e('The result was:', 'si-contact-form'); ?></p>
 <?php echo '<p><a href="http://www.fastsecurecontactform.com/email-does-not-send">'.  __('See FAQ', 'si-contact-form') . '</a></p>'; ?>
@@ -219,7 +219,7 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
 <?php }
 
    }else{
-     echo '<div id="message" class="updated fade"><p><strong>'.__('Test failed: Invalid E-mail address', 'si-contact-form').'</strong></p>';
+     echo '<div id="message" class="updated"><p><strong>'.__('Test failed: Invalid E-mail address', 'si-contact-form').'</strong></p>';
    }
 ?>
 </div>
@@ -252,7 +252,7 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
 
 
 <p>
-<?php _e('You must add the shortcode in a Page(not a post). That page will become your Contact Form', 'si-contact-form'); ?>. <a href="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/screenshot-4.gif" target="_new"><?php _e('help', 'si-contact-form'); ?></a>
+<?php _e('Add the shortcode in a Page, Post, or Text Widget', 'si-contact-form'); ?>. <a href="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/screenshot-4.gif" target="_new"><?php _e('help', 'si-contact-form'); ?></a>
 <br />
 <?php _e('Shortcode for this form:', 'si-contact-form'); echo " [si-contact-form form='$form_id']"; ?>
 </p>
@@ -304,7 +304,7 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
    $optionarray_gb_update = array(
          'donated' =>          (isset( $_POST['si_contact_donated'] ) ) ? 'true' : 'false',
          'max_forms' =>    ( is_numeric(trim($_POST['si_contact_max_forms'])) && trim($_POST['si_contact_max_forms']) < 100 ) ? absint(trim($_POST['si_contact_max_forms'])) : $si_contact_gb['max_forms'],
-         'max_fields' =>   ( is_numeric(trim($_POST['si_contact_max_fields'])) && trim($_POST['si_contact_max_fields']) < 200 ) ? absint(trim($_POST['si_contact_max_fields'])) : $si_contact_gb['max_fields'],
+         'max_fields' =>  $si_contact_gb['max_fields'],
          'captcha_disable_session' =>   (isset( $_POST['si_contact_captcha_disable_session'] ) ) ? 'true' : 'false',
          );
 
@@ -328,6 +328,7 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
          'subject_type' =>          $_POST['si_contact_subject_type'],
          'message_type' =>          $_POST['si_contact_message_type'],
          'preserve_space_enable' => (isset( $_POST['si_contact_preserve_space_enable'] ) ) ? 'true' : 'false',
+         'max_fields' =>   ( is_numeric(trim($_POST['si_contact_max_fields'])) && trim($_POST['si_contact_max_fields']) < 200 ) ? absint(trim($_POST['si_contact_max_fields'])) : $si_contact_gb['max_fields'],
          'double_email' =>     (isset( $_POST['si_contact_double_email'] ) ) ? 'true' : 'false', // true or false
          'name_case_enable' => (isset( $_POST['si_contact_name_case_enable'] ) ) ? 'true' : 'false',
          'sender_info_enable' =>   (isset( $_POST['si_contact_sender_info_enable'] ) ) ? 'true' : 'false',
@@ -444,7 +445,7 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
   );
 
     // optional extra fields
-    for ($i = 1; $i <= $optionarray_gb_update['max_fields']; $i++) {
+    for ($i = 1; $i <= $optionarray_update['max_fields']; $i++) {
         $optionarray_update['ex_field'.$i.'_label'] = (isset($_POST['si_contact_ex_field'.$i.'_label'])) ? trim($_POST['si_contact_ex_field'.$i.'_label']) : '';
         $optionarray_update['ex_field'.$i.'_type'] = (isset($_POST['si_contact_ex_field'.$i.'_type'])) ? trim($_POST['si_contact_ex_field'.$i.'_type']) : 'text';
         $optionarray_update['ex_field'.$i.'_default'] = ( isset($_POST['si_contact_ex_field'.$i.'_default']) && is_numeric(trim($_POST['si_contact_ex_field'.$i.'_default'])) && trim($_POST['si_contact_ex_field'.$i.'_default']) >= 0 ) ? absint(trim($_POST['si_contact_ex_field'.$i.'_default'])) : '0'; // use default if empty
@@ -477,12 +478,6 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
         }
     }
 
-    // deal with quote and ampersand
-    foreach($optionarray_update as $key => $val) {
-           $optionarray_update[$key] = str_replace('&quot;','"',$val);
-           $optionarray_update[$key] = str_replace('&amp;','&',$val);
-    }
-
     if (isset($_POST['si_contact_reset_styles'])) {
       // reset styles feature
       $optionarray_update = $this->si_contact_copy_styles($si_contact_option_defaults,$optionarray_update);
@@ -500,8 +495,8 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
          'field_div_style' => 'text-align:left; float:left; padding-top:10px;',
          'error_style' => 'text-align:left; color:red;',
          'select_style' => 'text-align:left;',
-         'captcha_div_style_sm' => 'padding-left:146px; width:162px; height:50px; padding-top:5px;',
-         'captcha_div_style_m' => 'padding-left:146px; width:210px; height:65px; padding-top:5px;',
+         'captcha_div_style_sm' => 'float:left; width:162px; height:50px; padding-top:5px;',
+         'captcha_div_style_m' => 'float:left; width:362px; height:65px; padding-top:5px;',
          'captcha_input_style' => 'text-align:left; float:left; padding:2px; margin:0; width:50px;',
          'submit_div_style' => 'padding-left:146px; text-align:left; float:left; clear:left; padding-top:8px;',
          'button_style' => 'cursor:pointer; margin:0;',
@@ -517,6 +512,15 @@ if ($si_contact_opt['php_mailer_enable'] == 'wordpress') {
          foreach($style_resets_arr as $key => $val) {
            $optionarray_update[$key] = $val;
          }
+    }
+
+    // unencode < > & " ' (less than, greater than, ampersand, double quote, single quote).
+    foreach($optionarray_update as $key => $val) {
+           $optionarray_update[$key] = str_replace('&lt;','<',$val);
+           $optionarray_update[$key] = str_replace('&gt;','>',$val);
+           $optionarray_update[$key] = str_replace('&#39;',"'",$val);
+           $optionarray_update[$key] = str_replace('&quot;','"',$val);
+           $optionarray_update[$key] = str_replace('&amp;','&',$val);
     }
 
     // save updated options to the database
@@ -596,8 +600,8 @@ ctf_addOnloadEvent(ctf_redirect);
 EOT;
 
 echo '
-<div id="message" class="updated fade"><p><strong>
-<img src="'.WP_PLUGIN_URL .'/si-contact-form/ctf-loading.gif" alt="'.esc_attr(__('Redirecting to Form 1', 'si-contact-form')).'" />&nbsp;&nbsp;
+<div id="message" class="updated"><p><strong>
+<img src="'.WP_PLUGIN_URL .'/si-contact-form/ctf-loading.gif" alt="'.$this->ctf_output_string(__('Redirecting to Form 1', 'si-contact-form')).'" />&nbsp;&nbsp;
 '.__('Redirecting to Form 1', 'si-contact-form').' ...
 </strong></p></div>
 ';
@@ -617,7 +621,7 @@ if ( !isset($_GET['show_form']) && !isset($_POST['fsc_action']) ) {
 
 ?>
 <?php if ( !empty($_POST )  && !isset($_POST['ctf_action'])) : ?>
-<div id="message" class="updated fade"><p><strong><?php _e('Options saved.', 'si-contact-form'); ?></strong></p></div>
+<div id="message" class="updated"><p><strong><?php _e('Options saved.', 'si-contact-form'); ?></strong></p></div>
 <?php endif; ?>
 
 <div class="wrap">
@@ -660,18 +664,24 @@ if ($si_contact_opt['name_type'] != 'not_available') {
       break;
    }
 }
-        // email
-if ($si_contact_opt['email_type'] != 'not_available')
+// email
+$autoresp_ok = 1; // used in autoresp settings below
+if ($si_contact_opt['email_type'] != 'not_available') {
         $av_fld_arr[] = 'from_email';
         $av_fld_subj_arr = $av_fld_arr;
+}else{
+   $autoresp_ok = 0;
+}
         // optional extra fields
-for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
     if ( $si_contact_opt['ex_field'.$i.'_label'] != '' && $si_contact_opt['ex_field'.$i.'_type'] != 'fieldset-close') {
       if ($si_contact_opt['ex_field'.$i.'_type'] == 'fieldset') {
       } else if ($si_contact_opt['ex_field'.$i.'_type'] == 'attachment' && $si_contact_opt['php_mailer_enable'] != 'php') {
             $av_fld_arr[] = "ex_field$i";
       } else {  // text, textarea, date, password, email, url, hidden, time, select, select-multiple, radio, checkbox, checkbox-multiple
             $av_fld_arr[] = "ex_field$i";
+            if ($si_contact_opt['ex_field'.$i.'_type'] == 'email')
+              $autoresp_ok = 1;
       }
     }
 } // end for
@@ -721,13 +731,13 @@ if (function_exists('get_transient')) {
 ?>
 
       <?php if ( ! empty($api->rating) ) : ?>
-	  <div class="star-holder" title="<?php echo esc_attr(sprintf(__('(Average rating based on %s ratings)', 'si-contact-form'),number_format_i18n($api->num_ratings))); ?>">
-	  <div class="star star-rating" style="width: <?php echo esc_attr($api->rating) ?>px"></div>
-	  <div class="star star5"><img src="<?php echo admin_url('images/star.gif'); ?>" alt="<?php _e('5 stars', 'si-contact-form') ?>" /></div>
-	  <div class="star star4"><img src="<?php echo admin_url('images/star.gif'); ?>" alt="<?php _e('4 stars', 'si-contact-form') ?>" /></div>
-	  <div class="star star3"><img src="<?php echo admin_url('images/star.gif'); ?>" alt="<?php _e('3 stars', 'si-contact-form') ?>" /></div>
-	  <div class="star star2"><img src="<?php echo admin_url('images/star.gif'); ?>" alt="<?php _e('2 stars', 'si-contact-form') ?>" /></div>
-	  <div class="star star1"><img src="<?php echo admin_url('images/star.gif'); ?>" alt="<?php _e('1 star', 'si-contact-form') ?>" /></div>
+	  <div class="star-holder" title="<?php echo $this->ctf_output_string(sprintf(__('(Average rating based on %s ratings)', 'si-contact-form'),number_format_i18n($api->num_ratings))); ?>">
+	  <div class="star star-rating" style="width: <?php echo $this->ctf_output_string($api->rating) ?>px"></div>
+	  <div class="star star5"><img src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/star.png" alt="<?php _e('5 stars', 'si-contact-form') ?>" /></div>
+	  <div class="star star4"><img src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/star.png" alt="<?php _e('4 stars', 'si-contact-form') ?>" /></div>
+	  <div class="star star3"><img src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/star.png" alt="<?php _e('3 stars', 'si-contact-form') ?>" /></div>
+	  <div class="star star2"><img src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/star.png" alt="<?php _e('2 stars', 'si-contact-form') ?>" /></div>
+	  <div class="star star1"><img src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/star.png" alt="<?php _e('1 star', 'si-contact-form') ?>" /></div>
 	  </div>
 	  <small><?php echo sprintf(__('(Average rating based on %s ratings)', 'si-contact-form'),number_format_i18n($api->num_ratings)); ?> <a target="_blank" href="http://wordpress.org/extend/plugins/<?php echo $api->slug ?>/"> <?php _e('rate', 'si-contact-form') ?></a></small>
       <br />
@@ -795,7 +805,7 @@ _e('If you find this plugin useful to you, please consider making a small donati
 			<h3><?php _e('ThemeFuse Original WP Themes', 'si-contact-form'); ?></h3>
             <?php echo sprintf(__('Try <a href="%s" target="_blank">ThemeFuse</a>, they make some amazing original WP themes that have a cool 1 click auto install feature and excellent after care support services. Check out some of their themes!', 'si-contact-form'), 'https://www.e-junkie.com/ecom/gb.php?cl=136641&c=ib&aff=148937'); ?>
 		</div>
-        <a href="https://www.e-junkie.com/ecom/gb.php?cl=136641&c=ib&aff=148937" target="_blank"><img title="<?php echo esc_attr(__('ThemeFuse', 'si-contact-form')); ?>" alt="<?php echo esc_attr(__('ThemeFuse', 'si-contact-form')); ?>" src="http://themefuse.com/wp-content/themes/themefuse/images/campaigns/themefuse.jpg" width="375" height="85" /></a>
+        <a href="https://www.e-junkie.com/ecom/gb.php?cl=136641&c=ib&aff=148937" target="_blank"><img title="<?php echo $this->ctf_output_string(__('ThemeFuse', 'si-contact-form')); ?>" alt="<?php echo $this->ctf_output_string(__('ThemeFuse', 'si-contact-form')); ?>" src="http://themefuse.com/wp-content/themes/themefuse/images/campaigns/themefuse.jpg" width="375" height="85" /></a>
   </div>
   </td>
  </tr>
@@ -877,7 +887,7 @@ if( function_exists('get_sfc_like_button') || function_exists('get_sfc_share_but
 
 <br />
 <label for="si_contact_max_forms"><?php _e('Number of available Multi-forms', 'si-contact-form'); ?>:</label>
-<input name="si_contact_max_forms" id="si_contact_max_forms" type="text" value="<?php echo absint($si_contact_gb['max_forms']);  ?>" size="3" />
+<input name="si_contact_max_forms" id="si_contact_max_forms" type="text" onclick="return alert('<?php _e('Caution: Lowering this setting deletes forms.', 'si-contact-form'); ?>')" value="<?php echo absint($si_contact_gb['max_forms']);  ?>" size="3" />
 <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_multi_num_tip');"><?php _e('help', 'si-contact-form'); ?></a>
 <div style="text-align:left; display:none" id="si_contact_multi_num_tip">
 <?php _e('Use this setting to increase or decrease the number of available forms. The most forms you can add is 99. Caution: lowering this number will delete forms of a higher number than the number you set.', 'si-contact-form') ?>
@@ -894,7 +904,7 @@ if( function_exists('get_sfc_like_button') || function_exists('get_sfc_share_but
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 
@@ -912,7 +922,7 @@ if( function_exists('get_sfc_like_button') || function_exists('get_sfc_share_but
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('E-mail:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -977,12 +987,15 @@ if(!preg_match("/,/", $ctf_contacts_test) ) {
         <label for="si_contact_email_to"><?php _e('E-mail To', 'si-contact-form'); ?>:</label>
 <?php
 if (empty($ctf_contacts) || $ctf_contacts_error ) {
-   echo '<span style="color:red;">'. __('ERROR: Misconfigured E-mail address in options.', 'si-contact-form').'</span>'."\n";
+       echo '<div id="message" class="error">';
+       echo __('ERROR: Misconfigured "E-mail To" address.', 'si-contact-form');
+       echo "</div>\n";
+       echo '<div class="fsc-error">'. __('ERROR: Misconfigured "E-mail To" address.', 'si-contact-form').'</div>'."\n";
 }
 
 if ( !function_exists('mail') ) {
-   echo '<br /><span style="color:red;">'. __('Warning: Your web host has the mail() function disabled. PHP cannot send email.', 'si-contact-form').'</span><br />'."\n";
-  echo '<span style="color:red;">'. __('Have them fix it. Or you can install the "WP Mail SMTP" plugin and configure it to use SMTP.', 'si-contact-form').'</span><br />'."\n";
+   echo '<div class="fsc-error">'. __('Warning: Your web host has the mail() function disabled. PHP cannot send email.', 'si-contact-form');
+   echo ' '. __('Have them fix it. Or you can install the "WP Mail SMTP" plugin and configure it to use SMTP.', 'si-contact-form').'</div>'."\n";
 }
 ?>
         <br />
@@ -1008,7 +1021,7 @@ if ( !function_exists('mail') ) {
       echo '<br /><span style="color:red;">'. __('Warning: Your web host has PHP safe_mode turned on.', 'si-contact-form');
       echo '</span> ';
       echo __('PHP safe_mode can cause problems like sending mail failures and file permission errors.', 'si-contact-form')."<br />\n";
-      echo __('PHP safe_mode is better turned off, relying on this feature might work, but is highly discouraged. Contact your web host for support.', 'si-contact-form')."<br /><br />\n";
+      echo __('Contact your web host for support.', 'si-contact-form')."<br /><br />\n";
     }
 
     // Check for older than PHP5
@@ -1016,7 +1029,7 @@ if ( !function_exists('mail') ) {
       echo '<br /><span style="color:red;">'. __('Warning: Your web host has not upgraded from PHP4 to PHP5.', 'si-contact-form');
       echo '</span> ';
       echo __('PHP4 was officially discontinued August 8, 2008 and is no longer considered safe.', 'si-contact-form')."<br />\n";
-      echo __('PHP5 is faster, has more features, and is and safer. Using PHP4 might still work, but is highly discouraged. Contact your web host for support.', 'si-contact-form')."<br /><br />\n";
+      echo __('Contact your web host for support.', 'si-contact-form')."<br /><br />\n";
     }
 
 if ( $si_contact_opt['email_from'] != '' ) {
@@ -1040,9 +1053,9 @@ if ( $si_contact_opt['email_from'] != '' ) {
 
    if ($from_fail)  {
        echo '<div id="message" class="error">';
-       echo __('ERROR: Misconfigured E-mail address in options.', 'si-contact-form');
+       echo __('ERROR: Misconfigured "E-mail From" address.', 'si-contact-form');
        echo "</div>\n";
-       echo '<span style="color:red;">'. __('ERROR: Misconfigured E-mail address in options.', 'si-contact-form').'</span><br />'."\n";
+       echo '<div class="fsc-error">'. __('ERROR: Misconfigured "E-mail From" address.', 'si-contact-form').'</div>'."\n";
    } else {
        $uri = parse_url(get_option('home'));
        $blogdomain = preg_replace("/^www\./i",'',$uri['host']);
@@ -1051,15 +1064,15 @@ if ( $si_contact_opt['email_from'] != '' ) {
        echo '<div id="message" class="updated">';
        echo sprintf(__('Warning: "E-mail From" is not set to an address from the same domain name as your web site (%s). This can sometimes cause mail not to send, or send but be delivered to a Spam folder. Be sure to test that your form is sending email and that you are receiving it, if not, fix this setting.', 'si-contact-form'), $blogdomain);
        echo "</div>\n";
-       echo '<br /><span class="updated">';
+       echo '<div class="fsc-notice">';
        echo sprintf(__('Warning: "E-mail From" is not set to an address from the same domain name as your web site (%s). This can sometimes cause mail not to send, or send but be delivered to a Spam folder. Be sure to test that your form is sending email and that you are receiving it, if not, fix this setting.', 'si-contact-form'), $blogdomain);
-       echo "</span><br />\n";
+       echo "</div>\n";
        }
    }
 }
 ?>
         <label for="si_contact_email_from"><?php _e('Custom E-mail From (optional)', 'si-contact-form'); ?>:</label>
-        <input name="si_contact_email_from" id="si_contact_email_from" type="text" value="<?php echo $si_contact_opt['email_from'];  ?>" size="50" />
+        <input name="si_contact_email_from" id="si_contact_email_from" type="text" value="<?php echo $this->ctf_output_string($si_contact_opt['email_from']);  ?>" size="50" />
         <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_email_from_tip');"><?php _e('help', 'si-contact-form'); ?></a>
         <div style="text-align:left; display:none" id="si_contact_email_from_tip">
         <?php _e('E-mail address the messages are sent from. Some web hosts do not allow PHP to send email unless the envelope sender email address is on the same web domain as your web site. And they require it to be a real address on that domain, or mail will NOT SEND! (They do this to help prevent spam.) If your contact form does not send any email, then set this to a real email address on the SAME domain as your web site, then test the form.', 'si-contact-form'); ?>
@@ -1072,9 +1085,9 @@ if ( $si_contact_opt['email_from'] != '' ) {
 
         <?php
        if( $si_contact_opt['email_from_enforced'] == 'true' && $si_contact_opt['email_from'] == '') {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: Enabling this setting requires the "E-mail From" setting above to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
         <input name="si_contact_email_from_enforced" id="si_contact_email_from_enforced" type="checkbox" <?php if( $si_contact_opt['email_from_enforced'] == 'true' ) echo 'checked="checked"'; ?> />
@@ -1086,7 +1099,7 @@ if ( $si_contact_opt['email_from'] != '' ) {
         <br />
 
         <label for="si_contact_email_reply_to"><?php _e('Custom Reply To (optional)', 'si-contact-form'); ?>:</label>
-        <input name="si_contact_email_reply_to" id="si_contact_email_reply_to" type="text" value="<?php echo $si_contact_opt['email_reply_to'];  ?>" size="50" />
+        <input name="si_contact_email_reply_to" id="si_contact_email_reply_to" type="text" value="<?php echo $this->ctf_output_string($si_contact_opt['email_reply_to']);  ?>" size="50" />
         <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_email_reply_to_tip');"><?php _e('help', 'si-contact-form'); ?></a>
         <div style="text-align:left; display:none" id="si_contact_email_reply_to_tip">
         <?php _e('Leave this setting blank for most forms because the "reply to" is set automatically. Only use this setting if you are using the form for a mailing list and you do NOT want the reply going to the form user.', 'si-contact-form'); ?>
@@ -1101,7 +1114,7 @@ if ( $si_contact_opt['email_from'] != '' ) {
 <?php
 
 $selected = '';
-foreach (array( 'wordpress' => esc_attr(__('WordPress', 'si-contact-form')),'geekmail' => esc_attr(__('geekMail', 'si-contact-form')),'php' => esc_attr(__('PHP', 'si-contact-form'))) as $k => $v) {
+foreach (array( 'wordpress' => $this->ctf_output_string(__('WordPress', 'si-contact-form')),'geekmail' => $this->ctf_output_string(__('geekMail', 'si-contact-form')),'php' => $this->ctf_output_string(__('PHP', 'si-contact-form'))) as $k => $v) {
  if ($si_contact_opt['php_mailer_enable'] == "$k")  $selected = ' selected="selected"';
  echo '<option value="'.$k.'"'.$selected.'>'.$v.'</option>'."\n";
  $selected = '';
@@ -1123,8 +1136,6 @@ foreach (array( 'wordpress' => esc_attr(__('WordPress', 'si-contact-form')),'gee
         <?php _e('Enable if you want the email message sent as HTML format. HTML format is desired if you want to avoid a 70 character line wordwrap when you copy and paste the email message. Normally the email is sent in plain text wordwrapped 70 characters per line to comply with most email programs.', 'si-contact-form') ?>
         </div>
         <br />
-
-        <label for="si_contact_email_bcc"><?php _e('E-mail Bcc (optional)', 'si-contact-form'); ?>:</label>
 <?php
 if ( $si_contact_opt['email_bcc'] != ''){
     $bcc_fail = 0;
@@ -1147,13 +1158,15 @@ if ( $si_contact_opt['email_bcc'] != ''){
    }
    if ($bcc_fail)  {
       echo '<div id="message" class="error">';
-      echo __('ERROR: Misconfigured E-mail address in options.', 'si-contact-form');
+      echo __('ERROR: Misconfigured "Bcc E-mail" address.', 'si-contact-form');
       echo "</div>\n";
-      echo '<span style="color:red;">'. __('ERROR: Misconfigured E-mail address in options.', 'si-contact-form').'</span><br />'."\n";
+      echo '<div class="fsc-error">'. __('ERROR: Misconfigured "Bcc E-mail" address.', 'si-contact-form').'</div>'."\n";
    }
 }
 ?>
-        <input name="si_contact_email_bcc" id="si_contact_email_bcc" type="text" value="<?php echo $si_contact_opt['email_bcc'];  ?>" size="50" />
+
+      <label for="si_contact_email_bcc"><?php _e('E-mail Bcc (optional)', 'si-contact-form'); ?>:</label>
+        <input name="si_contact_email_bcc" id="si_contact_email_bcc" type="text" value="<?php echo $this->ctf_output_string($si_contact_opt['email_bcc']);  ?>" size="50" />
         <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_email_bcc_tip');"><?php _e('help', 'si-contact-form'); ?></a>
         <div style="text-align:left; display:none" id="si_contact_email_bcc_tip">
         <?php _e('E-mail address(s) to receive Bcc (Blind Carbon Copy) messages. You can send to multiple or single, both methods are acceptable:', 'si-contact-form'); ?>
@@ -1241,7 +1254,7 @@ if ( $si_contact_opt['email_bcc'] != ''){
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Autoresponder:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -1259,9 +1272,19 @@ if ( $si_contact_opt['email_bcc'] != ''){
 
       <?php
        if( $si_contact_opt['auto_respond_enable'] == 'true' && ($si_contact_opt['auto_respond_from_name'] == '' || $si_contact_opt['auto_respond_from_email'] == '' || $si_contact_opt['auto_respond_reply_to'] == '' || $si_contact_opt['auto_respond_subject'] == '' || $si_contact_opt['auto_respond_message'] == '') ) {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-notice">';
          echo __('Warning: Enabling this setting requires all the autoresponder fields below to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
+       }
+       if( !$autoresp_ok && $si_contact_opt['auto_respond_enable'] == 'true' && $si_contact_opt['auto_respond_from_name'] != '' && $si_contact_opt['auto_respond_from_email'] != '' && $si_contact_opt['auto_respond_reply_to'] != '' && $si_contact_opt['auto_respond_subject'] != '' && $si_contact_opt['auto_respond_message'] != '' ) {
+         echo '<div class="fsc-error">';
+         echo __('Warning: No email address field is set, you will not be able to reply to emails and the autoresponder will not work.', 'si-contact-form');
+         echo "</div>\n";
+       }
+       if( !$autoresp_ok ) {
+         echo '<div id="message" class="updated">';
+         echo __('Warning: No email address field is set, you will not be able to reply to emails and the autoresponder will not work.', 'si-contact-form');
+         echo "</div>\n";
        }
        ?>
         <label for="si_contact_auto_respond_from_name"><?php _e('Autoresponder E-mail "From" name', 'si-contact-form'); ?>:</label><input name="si_contact_auto_respond_from_name" id="si_contact_auto_respond_from_name" type="text" value="<?php echo $this->ctf_output_string($si_contact_opt['auto_respond_from_name']);  ?>" size="60" />
@@ -1341,7 +1364,7 @@ if ( $si_contact_opt['email_bcc'] != ''){
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Akismet:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -1375,14 +1398,17 @@ if( $si_contact_opt['akismet_disable'] == 'false' ) {
 		if ( $key_status == 'valid' ) {
 		    $akismet_installed = 1;
             ?><div id="message" class="updated"><strong><?php echo __('Akismet is enabled and the key is valid. This form will be checked with Akismet to help prevent spam', 'si-contact-form'); ?></strong></div><?php
-            echo '<span class="updated">' . __('Akismet is installed and the key is valid. This form will be checked with Akismet to help prevent spam.', 'si-contact-form'). '</strong></span>';
+            echo '<div class="fsc-notice">' . __('Akismet is installed and the key is valid. This form will be checked with Akismet to help prevent spam.', 'si-contact-form'). '</strong></div>';
 		} else if ( $key_status == 'invalid' ) {
 			?><div id="message" class="error"><strong><?php echo __('Akismet plugin is enabled but key needs to be activated', 'si-contact-form'); ?></strong></div><?php
-             echo '<span class="error">'. __('Akismet plugin is installed but key needs to be activated.', 'si-contact-form'). '</span>';
+             echo '<div class="fsc-error">'. __('Akismet plugin is installed but key needs to be activated.', 'si-contact-form'). '</div>';
 		} else if ( !empty($key) && $key_status == 'failed' ) {
 			?><div id="message" class="error"><strong><?php echo __('Akismet plugin is enabled but key failed to verify', 'si-contact-form'); ?></strong></div><?php
-             echo '<span class="error">'.__('Akismet plugin is installed but key failed to verify.', 'si-contact-form'). '</span>';
-		}
+             echo '<div class="fsc-error">'.__('Akismet plugin is installed but key failed to verify.', 'si-contact-form'). '</div>';
+		} else {
+            ?><div id="message" class="error"><strong><?php echo __('Akismet plugin is installed but key has not been entered.', 'si-contact-form'); ?></strong></div><?php
+             echo '<div class="fsc-error">'.__('Akismet plugin is installed but key has not been entered.', 'si-contact-form'). '</div>';
+        }
     }
 ?>
 <br />
@@ -1392,10 +1418,10 @@ if( $si_contact_opt['akismet_disable'] == 'false' ) {
 <?php echo '<a href="'.admin_url(  "plugins.php?page=akismet-key-config" ).'">' . __('Configure Akismet', 'si-contact-form').'</a>'; ?>
 <?php
   }else{
-     echo '<span class="error">'.__('Akismet plugin is not installed or is deactivated.', 'si-contact-form'). '</span>';
+     echo '<div class="fsc-notice">'.__('Akismet plugin is not installed or is deactivated.', 'si-contact-form'). '</div>';
   }
 } else {
-    echo '<span class="error">'.__('Akismet is turned off for this form.', 'si-contact-form'). '</span>';
+    echo '<div class="fsc-notice">'.__('Akismet is turned off for this form.', 'si-contact-form'). '</div>';
 }
  if( $si_contact_opt['akismet_disable'] == 'false' ) {
 ?>
@@ -1404,8 +1430,8 @@ if( $si_contact_opt['akismet_disable'] == 'false' ) {
    <select id="si_contact_akismet_send_anyway" name="si_contact_akismet_send_anyway">
 <?php
 $akismet_send_anyway_array = array(
-'false' => esc_attr(__('Block spam messages', 'si-contact-form')),
-'true' => esc_attr(__('Tag as spam and send anyway', 'si-contact-form')),
+'false' => $this->ctf_output_string(__('Block spam messages', 'si-contact-form')),
+'true' => $this->ctf_output_string(__('Tag as spam and send anyway', 'si-contact-form')),
 );
 $selected = '';
 foreach ($akismet_send_anyway_array as $k => $v) {
@@ -1432,7 +1458,7 @@ foreach ($akismet_send_anyway_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('CAPTCHA:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -1447,50 +1473,13 @@ foreach ($akismet_send_anyway_array as $k => $v) {
         </div>
         <br />
 
-        <input name="si_contact_captcha_disable_session" id="si_contact_captcha_disable_session" type="checkbox" <?php if ( $si_contact_gb['captcha_disable_session'] == 'true' ) echo ' checked="checked" '; ?> />
-        <label for="si_contact_captcha_disable_session"><?php _e('Use CAPTCHA without PHP session.', 'si-contact-form'); ?></label>
-        <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_captcha_disable_session_tip');"><?php _e('help', 'si-contact-form'); ?></a>
-        <div style="text-align:left; display:none" id="si_contact_captcha_disable_session_tip">
-        <?php _e('Sometimes the CAPTCHA code never validates because of a server problem with PHP session handling. If the CAPTCHA code never validates and does not work, you can enable this setting to use files for session.', 'si-contact-form'); ?>
-        </div>
-        <br />
-        <?php
-         if ( $si_contact_gb['captcha_disable_session'] == 'true' ){
-            $check_this_dir = WP_PLUGIN_DIR . '/si-contact-form/captcha-secureimage/captcha-temp';
-           if(is_writable($check_this_dir)) {
-				//echo '<span style="color: green">OK - Writable</span> ' . substr(sprintf('%o', fileperms($check_this_dir)), -4);
-           } else if(!file_exists($check_this_dir)) {
-              echo '<span style="color: red;">';
-              echo __('There is a problem with the directory', 'si-contact-form');
-              echo ' /captcha-secureimage/captcha-temp/. ';
-	          echo __('The directory is not found, a <a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">permissions</a> problem may have prevented this directory from being created.', 'si-contact-form');
-              echo ' ';
-              echo __('Fixing the actual problem is recommended, but you can uncheck this setting on the contact form options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-contact-form');
-              echo '</span><br />';
-           } else {
-             echo '<span style="color: red;">';
-             echo __('There is a problem with the directory', 'si-contact-form') .' /captcha-secureimage/captcha-temp/. ';
-             echo __('The directory Unwritable (<a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">fix permissions</a>)', 'si-contact-form').'. ';
-             echo __('Permissions are: ', 'si-contact-form');
-             echo ' ';
-             echo substr(sprintf('%o', fileperms($check_this_dir)), -4);
-             echo ' ';
-             echo __('Fixing this may require assigning 0755 permissions or higher (e.g. 0777 on some hosts. Try 0755 first, because 0777 is sometimes too much and will not work.)', 'si-contact-form');
-             echo ' ';
-             echo __('Fixing the actual problem is recommended, but you can uncheck this setting on the contact form options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-contact-form');
-             echo '</span><br />';
-          }
-         }
-
-        ?>
-
         <label for="si_contact_captcha_difficulty"><?php _e('CAPTCHA difficulty level:', 'si-contact-form'); ?></label>
       <select id="si_contact_captcha_difficulty" name="si_contact_captcha_difficulty">
 <?php
 $captcha_difficulty_array = array(
-'low' => esc_attr(__('Low', 'si-contact-form')),
-'medium' => esc_attr(__('Medium', 'si-contact-form')),
-'high' => esc_attr(__('High', 'si-contact-form')),
+'low' => $this->ctf_output_string(__('Low', 'si-contact-form')),
+'medium' => $this->ctf_output_string(__('Medium', 'si-contact-form')),
+'high' => $this->ctf_output_string(__('High', 'si-contact-form')),
 );
 $selected = '';
 foreach ($captcha_difficulty_array as $k => $v) {
@@ -1514,6 +1503,49 @@ foreach ($captcha_difficulty_array as $k => $v) {
         </div>
         <br />
 
+        <input name="si_contact_captcha_perm" id="si_contact_captcha_perm" type="checkbox" <?php if( $si_contact_opt['captcha_perm'] == 'true' ) echo 'checked="checked"'; ?> />
+        <label for="si_contact_captcha_perm"><?php _e('Hide CAPTCHA for', 'si-contact-form'); ?>
+        <strong><?php _e('registered', 'si-contact-form'); ?></strong> <?php __('users who can', 'si-contact-form'); ?>:</label>
+        <?php $this->si_contact_captcha_perm_dropdown('si_contact_captcha_perm_level', $si_contact_opt['captcha_perm_level']);  ?>
+        <br />
+
+        <input name="si_contact_captcha_disable_session" id="si_contact_captcha_disable_session" type="checkbox" <?php if ( $si_contact_gb['captcha_disable_session'] == 'true' ) echo ' checked="checked" '; ?> />
+        <label for="si_contact_captcha_disable_session"><?php _e('Use CAPTCHA without PHP session.', 'si-contact-form'); ?></label>
+        <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_captcha_disable_session_tip');"><?php _e('help', 'si-contact-form'); ?></a>
+        <div style="text-align:left; display:none" id="si_contact_captcha_disable_session_tip">
+        <?php _e('Sometimes the CAPTCHA code never validates because of a server problem with PHP session handling. If the CAPTCHA code never validates and does not work, you can enable this setting to use files for session.', 'si-contact-form'); ?>
+        </div>
+        <br />
+        <?php
+         if ( $si_contact_gb['captcha_disable_session'] == 'true' ){
+            $check_this_dir = WP_PLUGIN_DIR . '/si-contact-form/captcha/temp';
+           if(is_writable($check_this_dir)) {
+				//echo '<span style="color: green">OK - Writable</span> ' . substr(sprintf('%o', fileperms($check_this_dir)), -4);
+           } else if(!file_exists($check_this_dir)) {
+              echo '<span style="color: red;">';
+              echo __('There is a problem with the directory', 'si-contact-form');
+              echo ' /captcha/temp/. ';
+	          echo __('The directory is not found, a <a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">permissions</a> problem may have prevented this directory from being created.', 'si-contact-form');
+              echo ' ';
+              echo __('Fixing the actual problem is recommended, but you can uncheck this setting on the contact form options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-contact-form');
+              echo '</span><br />';
+           } else {
+             echo '<span style="color: red;">';
+             echo __('There is a problem with the directory', 'si-contact-form') .' /captcha/temp/. ';
+             echo __('The directory Unwritable (<a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">fix permissions</a>)', 'si-contact-form').'. ';
+             echo __('Permissions are: ', 'si-contact-form');
+             echo ' ';
+             echo substr(sprintf('%o', fileperms($check_this_dir)), -4);
+             echo ' ';
+             echo __('Fixing this may require assigning 0755 permissions or higher (e.g. 0777 on some hosts. Try 0755 first, because 0777 is sometimes too much and will not work.)', 'si-contact-form');
+             echo ' ';
+             echo __('Fixing the actual problem is recommended, but you can uncheck this setting on the contact form options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-contact-form');
+             echo '</span><br />';
+          }
+         }
+
+        ?>
+
         <input name="si_contact_captcha_no_trans" id="si_contact_captcha_no_trans" type="checkbox" <?php if ( $si_contact_opt['captcha_no_trans'] == 'true' ) echo ' checked="checked" '; ?> />
         <label for="si_contact_captcha_no_trans"><?php _e('Disable CAPTCHA transparent text (only if captcha text is missing on the image, try this fix).', 'si-contact-form'); ?></label>
         <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_captcha_no_trans_tip');"><?php _e('help', 'si-contact-form'); ?></a>
@@ -1522,33 +1554,12 @@ foreach ($captcha_difficulty_array as $k => $v) {
         </div>
         <br />
 
-        <input name="si_contact_enable_audio" id="si_contact_enable_audio" type="checkbox" <?php if ( $si_contact_opt['enable_audio'] == 'true' ) echo ' checked="checked" '; ?> />
-        <label for="si_contact_enable_audio"><?php _e('Enable Audio for the CAPTCHA.', 'si-contact-form'); ?></label>
-        <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_enable_audio_tip');"><?php _e('help', 'si-contact-form'); ?></a>
-        <div style="text-align:left; display:none" id="si_contact_enable_audio_tip">
-        <?php _e('Enables an icon so the user can listen to an audio sound of the CAPTCHA.', 'si-contact-form') ?>
-        </div>
-        <br />
-
-        <input name="si_contact_enable_audio_flash" id="si_contact_enable_audio_flash" type="checkbox" <?php if ( $si_contact_opt['enable_audio_flash'] == 'true') echo ' checked="checked" '; ?> />
-        <label for="si_contact_enable_audio_flash"><?php _e('Enable Flash Audio for the CAPTCHA.', 'si-contact-form'); ?></label>
-        <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_enable_audio_flash_tip');"><?php _e('help', 'si-contact-form'); ?></a>
-        <div style="text-align:left; display:none" id="si_contact_enable_audio_flash_tip">
-        <?php _e('Enables a flash object so the user can listen to an audio sound of the CAPTCHA without having to download the sound file.', 'si-contact-form') ?>
-        </div>
-        <br />
-
-        <input name="si_contact_captcha_perm" id="si_contact_captcha_perm" type="checkbox" <?php if( $si_contact_opt['captcha_perm'] == 'true' ) echo 'checked="checked"'; ?> />
-        <label for="si_contact_captcha_perm"><?php _e('Hide CAPTCHA for', 'si-contact-form'); ?>
-        <strong><?php _e('registered', 'si-contact-form'); ?></strong> <?php __('users who can', 'si-contact-form'); ?>:</label>
-        <?php $this->si_contact_captcha_perm_dropdown('si_contact_captcha_perm_level', $si_contact_opt['captcha_perm_level']);  ?><br />
-
         <a href="<?php echo "$captcha_url_cf/test/index.php"; ?>" target="_new"><?php _e('Test if your PHP installation will support the CAPTCHA', 'si-contact-form'); ?></a>
 
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Form:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -1575,9 +1586,9 @@ foreach ($captcha_difficulty_array as $k => $v) {
       <select id="si_contact_name_type" name="si_contact_name_type">
 <?php
 $name_type_array = array(
-'not_available' => esc_attr(__('Not Available', 'si-contact-form')),
-'not_required' => esc_attr(__('Not Required', 'si-contact-form')),
-'required' => esc_attr(__('Required', 'si-contact-form')),
+'not_available' => $this->ctf_output_string(__('Not Available', 'si-contact-form')),
+'not_required' => $this->ctf_output_string(__('Not Required', 'si-contact-form')),
+'required' => $this->ctf_output_string(__('Required', 'si-contact-form')),
 );
 $selected = '';
 foreach ($name_type_array as $k => $v) {
@@ -1592,10 +1603,10 @@ foreach ($name_type_array as $k => $v) {
       <select id="si_contact_name_format" name="si_contact_name_format">
 <?php
 $name_format_array = array(
-'name' => esc_attr(__('Name', 'si-contact-form')),
-'first_last' => esc_attr(__('First Name, Last Name', 'si-contact-form')),
-'first_middle_i_last' => esc_attr(__('First Name, Middle Initial, Last Name', 'si-contact-form')),
-'first_middle_last' => esc_attr(__('First Name, Middle Name, Last Name', 'si-contact-form')),
+'name' => $this->ctf_output_string(__('Name', 'si-contact-form')),
+'first_last' => $this->ctf_output_string(__('First Name, Last Name', 'si-contact-form')),
+'first_middle_i_last' => $this->ctf_output_string(__('First Name, Middle Initial, Last Name', 'si-contact-form')),
+'first_middle_last' => $this->ctf_output_string(__('First Name, Middle Name, Last Name', 'si-contact-form')),
 );
 $selected = '';
 foreach ($name_format_array as $k => $v) {
@@ -1660,8 +1671,8 @@ foreach ($name_type_array as $k => $v) {
 <br />
 <br />
 
-<strong><?php _e('Extra Fields:', 'si-contact-form'); ?></strong><br />
-       <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_extra_fields_tip');"><?php _e('Click here to see instructions for extra fields.', 'si-contact-form'); ?></a>
+<strong><?php _e('Extra Fields:', 'si-contact-form'); ?></strong>
+       <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_extra_fields_tip');"><h3><?php _e('Click here to see instructions for extra fields.', 'si-contact-form'); ?></a></h3>
        <div style="text-align:left; display:none" id="si_contact_extra_fields_tip">
        <br />
 <strong><?php _e('Instructions for how to use Extra Fields:', 'si-contact-form'); ?></strong>
@@ -1719,38 +1730,29 @@ foreach ($name_type_array as $k => $v) {
        </blockquote>
 </div>
 
- <br />
 
- <label for="si_contact_max_fields"><?php _e('Number of available extra fields', 'si-contact-form'); ?>:</label>
- <input name="si_contact_max_fields" id="si_contact_max_fields" type="text" value="<?php echo absint($si_contact_gb['max_fields']);  ?>" size="3" />
- <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_max_fields_tip');"><?php _e('help', 'si-contact-form'); ?></a>
- <div style="text-align:left; display:none" id="si_contact_max_fields_tip">
-   <?php _e('Caution: This setting changes all forms. Increase the number as needed, but make sure you do not change to a lower number than what is needed for any of your forms.', 'si-contact-form'); ?>
- </div>
-
- <br />
 
       <?php
 $field_type_array = array(
-'text' => esc_attr(__('text', 'si-contact-form')),
-'textarea' => esc_attr(__('textarea', 'si-contact-form')),
-'checkbox' => esc_attr(__('checkbox', 'si-contact-form')),
-'checkbox-multiple' => esc_attr(__('checkbox-multiple', 'si-contact-form')),
-'radio' => esc_attr(__('radio', 'si-contact-form')),
-'select' => esc_attr(__('select', 'si-contact-form')),
-'select-multiple' => esc_attr(__('select-multiple', 'si-contact-form')),
-'attachment' => esc_attr(__('attachment', 'si-contact-form')),
-'date' => esc_attr(__('date', 'si-contact-form')),
-'time' => esc_attr(__('time', 'si-contact-form')),
-'email' => esc_attr(__('email', 'si-contact-form')),
-'url' => esc_attr(__('url', 'si-contact-form')),
-'hidden' => esc_attr(__('hidden', 'si-contact-form')),
-'password' => esc_attr(__('password', 'si-contact-form')),
-'fieldset' => esc_attr(__('fieldset(box-open)', 'si-contact-form')),
-'fieldset-close' => esc_attr(__('fieldset(box-close)', 'si-contact-form')),
+'text' => $this->ctf_output_string(__('text', 'si-contact-form')),
+'textarea' => $this->ctf_output_string(__('textarea', 'si-contact-form')),
+'checkbox' => $this->ctf_output_string(__('checkbox', 'si-contact-form')),
+'checkbox-multiple' => $this->ctf_output_string(__('checkbox-multiple', 'si-contact-form')),
+'radio' => $this->ctf_output_string(__('radio', 'si-contact-form')),
+'select' => $this->ctf_output_string(__('select', 'si-contact-form')),
+'select-multiple' => $this->ctf_output_string(__('select-multiple', 'si-contact-form')),
+'attachment' => $this->ctf_output_string(__('attachment', 'si-contact-form')),
+'date' => $this->ctf_output_string(__('date', 'si-contact-form')),
+'time' => $this->ctf_output_string(__('time', 'si-contact-form')),
+'email' => $this->ctf_output_string(__('email', 'si-contact-form')),
+'url' => $this->ctf_output_string(__('url', 'si-contact-form')),
+'hidden' => $this->ctf_output_string(__('hidden', 'si-contact-form')),
+'password' => $this->ctf_output_string(__('password', 'si-contact-form')),
+'fieldset' => $this->ctf_output_string(__('fieldset(box-open)', 'si-contact-form')),
+'fieldset-close' => $this->ctf_output_string(__('fieldset(box-close)', 'si-contact-form')),
 );
       // optional extra fields
-      for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+      for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
       ?>
       <fieldset style="padding:4px; margin:4px;">
         <legend style="padding:4px;"><b><?php echo sprintf( __('Extra field %d', 'si-contact-form'),$i);?></b></legend>
@@ -1808,6 +1810,16 @@ foreach ($field_type_array as $k => $v) {
       <?php
       } // end foreach
       ?>
+
+ <br />
+
+ <label for="si_contact_max_fields"><?php _e('Number of available extra fields', 'si-contact-form'); ?>:</label>
+ <input name="si_contact_max_fields" id="si_contact_max_fields" type="text" onclick="return alert('<?php _e('Caution: Increase the number of extra fields as needed, but make sure you do not change to a lower number than what is being used on this form.', 'si-contact-form'); ?>')" value="<?php echo absint($si_contact_opt['max_fields']);  ?>" size="3" />
+ <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_max_fields_tip');"><?php _e('help', 'si-contact-form'); ?></a>
+ <div style="text-align:left; display:none" id="si_contact_max_fields_tip">
+   <?php _e('Caution: Increase the number of extra fields as needed, but make sure you do not change to a lower number than what is being used on this form.', 'si-contact-form'); ?>
+ </div>
+
 <br />
       <input name="si_contact_ex_fields_after_msg" id="si_contact_ex_fields_after_msg" type="checkbox" <?php if( $si_contact_opt['ex_fields_after_msg'] == 'true' ) echo 'checked="checked"'; ?> />
       <label for="si_contact_ex_fields_after_msg"><?php _e('Move extra fields to after the Message field.', 'si-contact-form'); ?></label>
@@ -1822,15 +1834,15 @@ foreach ($field_type_array as $k => $v) {
 <?php
 $selected = '';
 $cal_date_array = array(
-'mm/dd/yyyy' => esc_attr(__('mm/dd/yyyy', 'si-contact-form')),
-'dd/mm/yyyy' => esc_attr(__('dd/mm/yyyy', 'si-contact-form')),
-'mm-dd-yyyy' => esc_attr(__('mm-dd-yyyy', 'si-contact-form')),
-'dd-mm-yyyy' => esc_attr(__('dd-mm-yyyy', 'si-contact-form')),
-'mm.dd.yyyy' => esc_attr(__('mm.dd.yyyy', 'si-contact-form')),
-'dd.mm.yyyy' => esc_attr(__('dd.mm.yyyy', 'si-contact-form')),
-'yyyy/mm/dd' => esc_attr(__('yyyy/mm/dd', 'si-contact-form')),
-'yyyy-mm-dd' => esc_attr(__('yyyy-mm-dd', 'si-contact-form')),
-'yyyy.mm.dd' => esc_attr(__('yyyy.mm.dd', 'si-contact-form')),
+'mm/dd/yyyy' => $this->ctf_output_string(__('mm/dd/yyyy', 'si-contact-form')),
+'dd/mm/yyyy' => $this->ctf_output_string(__('dd/mm/yyyy', 'si-contact-form')),
+'mm-dd-yyyy' => $this->ctf_output_string(__('mm-dd-yyyy', 'si-contact-form')),
+'dd-mm-yyyy' => $this->ctf_output_string(__('dd-mm-yyyy', 'si-contact-form')),
+'mm.dd.yyyy' => $this->ctf_output_string(__('mm.dd.yyyy', 'si-contact-form')),
+'dd.mm.yyyy' => $this->ctf_output_string(__('dd.mm.yyyy', 'si-contact-form')),
+'yyyy/mm/dd' => $this->ctf_output_string(__('yyyy/mm/dd', 'si-contact-form')),
+'yyyy-mm-dd' => $this->ctf_output_string(__('yyyy-mm-dd', 'si-contact-form')),
+'yyyy.mm.dd' => $this->ctf_output_string(__('yyyy.mm.dd', 'si-contact-form')),
 );
 foreach ($cal_date_array as $k => $v) {
  if ($si_contact_opt['date_format'] == "$k")  $selected = ' selected="selected"';
@@ -1857,8 +1869,8 @@ foreach ($cal_date_array as $k => $v) {
 <?php
 $selected = '';
 $time_format_array = array(
-'12' => esc_attr(__('12 Hour', 'si-contact-form')),
-'24' => esc_attr(__('24 Hour', 'si-contact-form')),
+'12' => $this->ctf_output_string(__('12 Hour', 'si-contact-form')),
+'24' => $this->ctf_output_string(__('24 Hour', 'si-contact-form')),
 );
 foreach ($time_format_array as $k => $v) {
  if ($si_contact_opt['time_format'] == "$k")  $selected = ' selected="selected"';
@@ -1930,7 +1942,7 @@ foreach ($time_format_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Redirect:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -1953,7 +1965,7 @@ foreach ($time_format_array as $k => $v) {
         </div>
         <br />
 
-        <label for="si_contact_redirect_url"><?php _e('Redirect URL', 'si-contact-form'); ?>:</label><input name="si_contact_redirect_url" id="si_contact_redirect_url" type="text" value="<?php echo $si_contact_opt['redirect_url'];  ?>" size="50" />
+        <label for="si_contact_redirect_url"><?php _e('Redirect URL', 'si-contact-form'); ?>:</label><input name="si_contact_redirect_url" id="si_contact_redirect_url" type="text" value="<?php echo $this->ctf_output_string($si_contact_opt['redirect_url']);  ?>" size="50" />
         <a style="cursor:pointer;" title="<?php _e('Click for Help!', 'si-contact-form'); ?>" onclick="toggleVisibility('si_contact_redirect_url_tip');"><?php _e('help', 'si-contact-form'); ?></a>
         <div style="text-align:left; display:none" id="si_contact_redirect_url_tip">
         <?php _e('The form will redirect to this URL after success. This can be used to redirect to the blog home page, or a custom "Thank You" page.', 'si-contact-form'); ?>
@@ -1962,9 +1974,9 @@ foreach ($time_format_array as $k => $v) {
         <br />
       <?php
        if( $si_contact_opt['redirect_query'] == 'true' &&  $si_contact_opt['redirect_enable'] != 'true') {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: Enabling this setting requires the "Enable redirect" to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
         <input name="si_contact_redirect_query" id="si_contact_redirect_query" type="checkbox" <?php if( $si_contact_opt['redirect_query'] == 'true' ) echo 'checked="checked"'; ?> />
@@ -2045,18 +2057,18 @@ foreach ($time_format_array as $k => $v) {
 
       <?php
        if( $si_contact_opt['redirect_email_off'] == 'true' && ($si_contact_opt['redirect_enable'] != 'true' || $si_contact_opt['redirect_query'] != 'true') ) {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: Enabling this setting requires the "Enable redirect" and "Enable posted data to be sent as a query string" to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
 
        <?php
        if( $si_contact_opt['redirect_email_off'] == 'true' && $si_contact_opt['redirect_enable'] == 'true' && $si_contact_opt['redirect_query'] == 'true' ) {
         ?><div id="message" class="updated"><strong><?php echo __('Warning: You have turned off email sending in the redirect settings below. This is just a reminder in case that was a mistake. If that is what you intended, then ignore this message.', 'si-contact-form'); ?></strong></div><?php
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-notice">';
          echo __('Warning: You have turned off email sending in the setting below. This is just a reminder in case that was a mistake. If that is what you intended, then ignore this message.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
         <input name="si_contact_redirect_email_off" id="si_contact_redirect_email_off" type="checkbox" <?php if( $si_contact_opt['redirect_email_off'] == 'true' ) echo 'checked="checked"'; ?> />
@@ -2070,7 +2082,7 @@ foreach ($time_format_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Silent Remote Sending:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -2087,9 +2099,9 @@ foreach ($time_format_array as $k => $v) {
       <select id="si_contact_silent_send" name="si_contact_silent_send">
 <?php
 $silent_send_array = array(
-'off' => esc_attr(__('Off', 'si-contact-form')),
-'get' => esc_attr(__('Enabled: Method GET', 'si-contact-form')),
-'post' => esc_attr(__('Enabled: Method POST', 'si-contact-form')),
+'off' => $this->ctf_output_string(__('Off', 'si-contact-form')),
+'get' => $this->ctf_output_string(__('Enabled: Method GET', 'si-contact-form')),
+'post' => $this->ctf_output_string(__('Enabled: Method POST', 'si-contact-form')),
 );
 $selected = '';
 foreach ($silent_send_array as $k => $v) {
@@ -2111,9 +2123,9 @@ foreach ($silent_send_array as $k => $v) {
 
        <?php
        if( $si_contact_opt['silent_send'] != 'off' &&  $si_contact_opt['silent_url'] == '') {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: Enabling this setting requires the "Silent Remote URL" to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
 
@@ -2194,18 +2206,18 @@ foreach ($silent_send_array as $k => $v) {
 
       <?php
        if( $si_contact_opt['silent_email_off'] == 'true' && ($si_contact_opt['silent_send'] == 'off' || $si_contact_opt['silent_url'] == '') ) {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: Enabling this setting requires the "Silent Remote Send" and "Silent Remote URL" to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
 
        <?php
        if( $si_contact_opt['silent_email_off'] == 'true' && $si_contact_opt['silent_send'] != 'off' ) {
         ?><div id="message" class="updated"><strong><?php echo __('Warning: You have turned off email sending in the Silent Remote Send settings below. This is just a reminder in case that was a mistake. If that is what you intended, then ignore this message.', 'si-contact-form'); ?></strong></div><?php
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: You have turned off email sending in the setting below. This is just a reminder in case that was a mistake. If that is what you intended, then ignore this message.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
         <input name="si_contact_silent_email_off" id="si_contact_silent_email_off" type="checkbox" <?php if( $si_contact_opt['silent_email_off'] == 'true' ) echo 'checked="checked"'; ?> />
@@ -2219,7 +2231,7 @@ foreach ($silent_send_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Data Export:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -2310,18 +2322,18 @@ foreach ($silent_send_array as $k => $v) {
 
       <?php
        if( $si_contact_opt['export_email_off'] == 'true' && ($si_contact_opt['export_enable'] != 'true' ) ) {
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-error">';
          echo __('Warning: Enabling this setting requires the "Enable data export" to also be set.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div>\n";
        }
        ?>
 
        <?php
        if( $si_contact_opt['export_email_off'] == 'true' && $si_contact_opt['export_enable'] == 'true' ) {
         ?><div id="message" class="updated"><strong><?php echo __('Warning: You have turned off email sending in the data export settings below. This is just a reminder in case that was a mistake. If that is what you intended, then ignore this message.', 'si-contact-form'); ?></strong></div><?php
-         echo '<br /><span class="updated">';
+         echo '<div class="fsc-notice">';
          echo __('Warning: You have turned off email sending in the setting below. This is just a reminder in case that was a mistake. If that is what you intended, then ignore this message.', 'si-contact-form');
-         echo "</span><br />\n";
+         echo "</div\n";
        }
        ?>
         <input name="si_contact_export_email_off" id="si_contact_export_email_off" type="checkbox" <?php if( $si_contact_opt['export_email_off'] == 'true' ) echo 'checked="checked"'; ?> />
@@ -2334,7 +2346,7 @@ foreach ($silent_send_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Style:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -2424,7 +2436,7 @@ foreach ($silent_send_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Fields:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -2470,7 +2482,7 @@ foreach ($silent_send_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Tooltips:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -2492,7 +2504,7 @@ foreach ($silent_send_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
 
 <div class="form-tab"><?php echo __('Errors:', 'si-contact-form') .' '. sprintf(__('(form %d)', 'si-contact-form'),$form_id);?></div>
@@ -2518,7 +2530,7 @@ foreach ($silent_send_array as $k => $v) {
 </fieldset>
 
     <p class="submit">
-      <input type="submit" name="submit" value="<?php echo esc_attr( __('Update Options', 'si-contact-form')); ?> &raquo;" />
+      <input type="submit" name="submit" value="<?php echo $this->ctf_output_string( __('Update Options', 'si-contact-form')); ?> &raquo;" />
     </p>
  <!-- end Click for Advanced was here -->
 
@@ -2534,8 +2546,8 @@ foreach ($silent_send_array as $k => $v) {
 <?php _e('Type an email address here and then click Send Test to generate a test email.', 'si-contact-form'); ?>
 <?php
 if ( !function_exists('mail') ) {
-  echo '<br /><span style="color:red;">'. __('Warning: Your web host has the mail() function disabled. PHP cannot send email.', 'si-contact-form').'</span><br />'."\n";
-  echo '<span style="color:red;">'. __('Have them fix it. Or you can install the "WP Mail SMTP" plugin and configure it to use SMTP.', 'si-contact-form').'</span>'."\n";
+   echo '<div class="fsc-error">'. __('Warning: Your web host has the mail() function disabled. PHP cannot send email.', 'si-contact-form');
+   echo ' '. __('Have them fix it. Or you can install the "WP Mail SMTP" plugin and configure it to use SMTP.', 'si-contact-form').'</div>'."\n";
 }
 ?>
 <br />
@@ -2563,8 +2575,8 @@ if ( !function_exists('mail') ) {
 <select id="si_contact_copy_what" name="si_contact_copy_what">
 <?php
 $copy_what_array = array(
-'all' => esc_attr(sprintf(__('Form %d - all settings', 'si-contact-form'),$form_id)),
-'styles' => esc_attr(sprintf(__('Form %d - style settings', 'si-contact-form'),$form_id)),
+'all' => $this->ctf_output_string(sprintf(__('Form %d - all settings', 'si-contact-form'),$form_id)),
+'styles' => $this->ctf_output_string(sprintf(__('Form %d - style settings', 'si-contact-form'),$form_id)),
 );
 
 $selected = '';
@@ -2580,12 +2592,12 @@ foreach ($copy_what_array as $k => $v) {
 <select id="si_contact_destination_form" name="si_contact_destination_form">
 <?php
 $backup_type_array = array(
-'all' => esc_attr(__('All Forms', 'si-contact-form')),
+'all' => $this->ctf_output_string(__('All Forms', 'si-contact-form')),
 );
-$backup_type_array["1"] = esc_attr(sprintf(__('Form: %d', 'si-contact-form'),1));
+$backup_type_array["1"] = $this->ctf_output_string(sprintf(__('Form: %d', 'si-contact-form'),1));
 // multi-forms > 1
 for ($i = 2; $i <= $si_contact_gb['max_forms']; $i++) {
-$backup_type_array[$i] = esc_attr(sprintf(__('Form: %d', 'si-contact-form'),$i));
+$backup_type_array[$i] = $this->ctf_output_string(sprintf(__('Form: %d', 'si-contact-form'),$i));
 }
 $selected = '';
 foreach ($backup_type_array as $k => $v) {
@@ -2620,12 +2632,12 @@ foreach ($backup_type_array as $k => $v) {
 <select id="si_contact_backup_type" name="si_contact_backup_type">
 <?php
 $backup_type_array = array(
-'all' => esc_attr(__('All Forms', 'si-contact-form')),
+'all' => $this->ctf_output_string(__('All Forms', 'si-contact-form')),
 );
-$backup_type_array["1"] = esc_attr(sprintf(__('Form: %d', 'si-contact-form'),1));
+$backup_type_array["1"] = $this->ctf_output_string(sprintf(__('Form: %d', 'si-contact-form'),1));
 // multi-forms > 1
 for ($i = 2; $i <= $si_contact_gb['max_forms']; $i++) {
-$backup_type_array[$i] = esc_attr(sprintf(__('Form: %d', 'si-contact-form'),$i));
+$backup_type_array[$i] = $this->ctf_output_string(sprintf(__('Form: %d', 'si-contact-form'),$i));
 }
 $selected = '';
 foreach ($backup_type_array as $k => $v) {
@@ -2657,12 +2669,12 @@ foreach ($backup_type_array as $k => $v) {
 <select id="si_contact_restore_backup_type" name="si_contact_backup_type">
 <?php
 $backup_type_array = array(
-'all' => esc_attr(__('All Forms', 'si-contact-form')),
+'all' => $this->ctf_output_string(__('All Forms', 'si-contact-form')),
 );
-$backup_type_array["1"] = esc_attr(sprintf(__('Form: %d', 'si-contact-form'),1));
+$backup_type_array["1"] = $this->ctf_output_string(sprintf(__('Form: %d', 'si-contact-form'),1));
 // multi-forms > 1
 for ($i = 2; $i <= $si_contact_gb['max_forms']; $i++) {
-$backup_type_array[$i] = esc_attr(sprintf(__('Form: %d', 'si-contact-form'),$i));
+$backup_type_array[$i] = $this->ctf_output_string(sprintf(__('Form: %d', 'si-contact-form'),$i));
 }
 $selected = '';
 foreach ($backup_type_array as $k => $v) {
@@ -2699,7 +2711,7 @@ if ($si_contact_gb['donated'] != 'true') { ?>
    </td><td width="350">
    <?php echo sprintf(__('"I recommend <a href="%s" target="_blank">HostGator Web Hosting</a>. All my sites are hosted there. The prices are great and they offer the most features." - Mike Challis', 'si-contact-form'), 'http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=mchallis-fscwp&amp;page=http://www.hostgator.com/apps/wordpress-hosting.shtml'); ?>
    </td><td width="100">
-    <a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=mchallis-fscwp&amp;page=http://www.hostgator.com/apps/wordpress-hosting.shtml" target="_blank"><img title="<?php echo esc_attr(__('Web Site Hosting', 'si-contact-form')); ?>" alt="<?php echo esc_attr(__('Web Site Hosting', 'si-contact-form')); ?>" src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/hostgator-blog.gif" width="100" height="100" /></a>
+    <a href="http://secure.hostgator.com/~affiliat/cgi-bin/affiliates/clickthru.cgi?id=mchallis-fscwp&amp;page=http://www.hostgator.com/apps/wordpress-hosting.shtml" target="_blank"><img title="<?php echo $this->ctf_output_string(__('Web Site Hosting', 'si-contact-form')); ?>" alt="<?php echo $this->ctf_output_string(__('Web Site Hosting', 'si-contact-form')); ?>" src="<?php echo WP_PLUGIN_URL; ?>/si-contact-form/hostgator-blog.gif" width="100" height="100" /></a>
 
 <?php
   }

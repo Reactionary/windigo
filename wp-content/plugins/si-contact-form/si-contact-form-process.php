@@ -188,7 +188,7 @@ if ($have_attach){
 }
 
    // optional extra fields form post validation
-      for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+      for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
         if ($si_contact_opt['ex_field'.$i.'_label'] != '' && $si_contact_opt['ex_field'.$i.'_type'] != 'fieldset-close') {
           if ($si_contact_opt['ex_field'.$i.'_type'] == 'fieldset') {
 
@@ -430,14 +430,14 @@ if ($have_attach){
            } else if(!file_exists($check_this_dir)) {
               $si_cec .= '<br />';
               $si_cec .= __('There is a problem with the directory', 'si-contact-form');
-              $si_cec .= ' /si-contact-form/captcha-secureimage/captcha-temp/.<br />';
+              $si_cec .= ' /si-contact-form/captcha/temp/.<br />';
 	          $si_cec .= __('The directory is not found, a <a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">permissions</a> problem may have prevented this directory from being created.', 'si-contact-form');
               $si_cec .= ' ';
               $si_cec .= __('Fixing the actual problem is recommended, but you can uncheck this setting on the contact form options page: "Use CAPTCHA without PHP session" and the captcha will work this way just fine (as long as PHP sessions are working).', 'si-contact-form');
               $si_contact_error_captcha .= $si_cec;
            } else {
              $si_cec .= '<br />';
-             $si_cec .= __('There is a problem with the directory', 'si-contact-form') .' /si-contact-form/captcha-secureimage/captcha-temp/.<br />';
+             $si_cec .= __('There is a problem with the directory', 'si-contact-form') .' /si-contact-form/captcha/temp/.<br />';
              $si_cec .= __('Directory Unwritable (<a href="http://codex.wordpress.org/Changing_File_Permissions" target="_blank">fix permissions</a>)', 'si-contact-form').'. ';
              $si_cec .= __('Permissions are: ', 'si-contact-form');
              $si_cec .= ' ';
@@ -571,7 +571,7 @@ if ($have_attach){
    }
 
    // optional extra fields
-   for ($i = 1; $i <= $si_contact_gb['max_fields']; $i++) {
+   for ($i = 1; $i <= $si_contact_opt['max_fields']; $i++) {
       if ( $si_contact_opt['ex_field'.$i.'_label'] != '' && $si_contact_opt['ex_field'.$i.'_type'] != 'fieldset-close') {
           if(preg_match('/^{inline}/',$si_contact_opt['ex_field'.$i.'_label'])) {
             // remove the {inline} modifier tag from the label
@@ -995,6 +995,8 @@ if ($have_attach){
              $msg = str_replace('['.$key.']',$data,$msg);
            }
        }
+       $subj = preg_replace('/(\[ex_field)(\d+)(\])/','',$subj); // remove empty ex_field tags
+       $msg = preg_replace('/(\[ex_field)(\d+)(\])/','',$msg);   // remove empty ex_field tags
        $subj = str_replace('[form_label]',$posted_form_name,$subj);
 
        // wordwrap email message

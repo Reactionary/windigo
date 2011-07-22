@@ -22,8 +22,9 @@ function si_contact_captcha_refresh(form_num,type,securimage_url,securimage_show
   	    si_flash_ctf += '</object>';
        document.getElementById('si_flash_ctf' + form_num).innerHTML = si_flash_ctf;
        return false;
-  } else {
+  } 
+  if(type == 'wav') {  
    var si_aud_ctf = securimage_url+'/securimage_play.php?prefix='+prefix;
     document.getElementById('si_aud_ctf' + form_num).href = si_aud_ctf;
-   }
+  }
 }

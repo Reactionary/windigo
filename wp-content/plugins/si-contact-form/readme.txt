@@ -4,7 +4,7 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Donate link: http://www.FastSecureContactForm.com/donate
 Tags: Akismet, captcha, contact, contact form, form, mail, email, spam, multilingual, wpmu, buddypress
 Requires at least: 2.8
-Tested up to: 3.1.2
+Tested up to: 3.2.1
 Stable tag: trunk
 
 A super customizable contact form that lets your visitors send you email. Blocks all automated spammers. No templates to mess with.
@@ -64,7 +64,6 @@ Captcha Image Support:
  * Uses Open-source free PHP CAPTCHA library by www.phpcaptcha.org (customized version included)
  * Abstract background with multi colored, angled, and transparent text
  * Arched lines through text
- * Visual and Audible CAPTCHA
  * Refresh button to reload captcha if you cannot read it
  * CAPTCHA can be disabled in Options
 
@@ -185,6 +184,35 @@ For more help... [See the official FAQ at FastSecureContactForm.com](http://www.
 
 == Changelog ==
 
+- Fix, added missing 00 to 24 hour time select.
+
+= 3.0.3.1 =
+- (05 Jul 2011) - Tested / fixed to be compatible with WP 3.2
+- Fix for `&apos` entity showing for single quotes on IE7, IE8
+- Fix for CAPTCHA input field out of position on IE7 with labels left CSS setting.
+
+= 3.0.3 =
+- (16 Jun 2011) - Tested compatible with WP 3.2 Beta 2
+- "Number of available extra fields" setting is now for each form # instead of all forms.
+- CAPTCHA audio feature removed.
+- Misc. admin Fixes.
+- Another fix for empty autoresponder field tags were showing.
+- Calendar style improvements.
+
+= 3.0.2 =
+- (08 Jun 2011) - Fixed error: Undefined variable: securimage_url 
+- Added id tags to submit and reset buttons.
+- Updated Italian language (it_IT) - Translated by [Gianni Diurno](http://gidibao.net/ "Gianni Diurno")
+
+= 3.0.1 =
+- (02 Jun 2011) - CAPTCHA Audio feature is disabled by Mike Challis until further notice because a proof of concept code CAPTCHA solving exploit was released - Security Advisory - SOS-11-007. CAPTCHA image is not involved.
+- Security enhancements for possible low level XSS exploit in admin settings: thanks to [Julio Potier](http://secu.boiteaweb.fr/).
+- Fix javascript error when CAPTCHA audio is disabled.
+- Fixed missing width/height attributes for CAPTCHA images.
+- Fixed backslash problem on Restore Settings tool.
+- Fixed empty autoresponder field tags were showing.
+- Fixed various style improvements for admin error messages.
+- Added a popup alert for when changing the number of forms or extra fields.
 - Added setting: CSS style for CAPTCHA input field on the contact form.
 - Added Norwegian Bokmal (nb_NO) - Translated by [Tore Johnny Bratveit](http://punktlig-ikt.no)
 
