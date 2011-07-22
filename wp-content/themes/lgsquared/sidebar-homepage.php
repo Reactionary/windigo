@@ -18,10 +18,10 @@
 	        if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('HomepageSidebar') ) : ?>
 		    <?php endif; // end primary widget area ?>
 		        <li class="sidebar-banner">
-		            <a href="http://windigointernational.com/?page_id=15"><img src="<?php bloginfo('template_directory');?>/images/parlor_banner.jpg" /></a>
+		            <a href="http://windigosurfboards.com/?page_id=15"><img src="<?php bloginfo('template_directory');?>/images/parlor_banner.jpg" /></a>
 		        </li>
 		        <li class="sidebar-banner">
-		            <a href="http://windigointernational.com/?page_id=340"><img src="<?php bloginfo('template_directory');?>/images/transworld_banner.jpg" /></a>
+		            <a href="http://windigosurfboards.com/?page_id=340"><img src="<?php bloginfo('template_directory');?>/images/transworld_banner.jpg" /></a>
 		        </li>
 		        <li class="sidebar-banner">
 		            <a href="http://store.windigointernational.com/products"><img src="<?php bloginfo('template_directory');?>/images/apparel_banner.jpg" /></a>
