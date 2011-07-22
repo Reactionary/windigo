@@ -1,0 +1,184 @@
+
+/* =Windigo Store Styles
+-------------------------------------------------------------- */
+
+#storenav {
+	border-top: 1px solid #FFFFFF;
+}
+
+#product-images {
+	margin: 10px 0px 10px 10px;
+	width: 460px;
+	text-align: center;
+	float: left;
+	overflow: hidden;
+}
+
+#product-details {
+	margin: 10px;
+	float: right;
+	width: 508px;
+}
+
+#minicart {
+	border-left: 1px solid #FFFFFF;
+	padding: 0px 10px;
+	float: right;
+	min-width: 230px;
+	height: 39px;
+}
+
+a:hover #minicart {
+	color: #FFFFFF;
+	background: #5b837f;
+}
+
+#minicart .minicart-title {
+	float: left;
+}
+
+#minicart ul {
+	float: right;
+}
+
+#minicart ul li {
+	display: inline;
+}
+
+#storemain {
+	background: #CCCCCC url("images/rivets.jpg") top left repeat;
+}
+
+#products {
+	margin: 20px auto;
+	width: 960px;
+}
+
+#products .product {
+	margin: 10px;
+	float: left;
+	width: 300px;
+}
+
+#products .product a {
+	display: block;
+}
+
+.product-info {
+	position: relative;
+	background: #000000;
+	line-height: 40px;
+	height: 40px;
+}
+
+.product-info .product-title {
+	position: absolute;
+	color: #FFFFFF;
+	font-size: .8em;
+	font-weight: 100;
+	text-transform: uppercase;
+	margin-left: 10px;
+	float: left;
+}
+
+.product-info .product-price {
+	color: #000000;
+	background: #FFFFFF;
+	padding: 0px 10px;
+	height: 40px;
+	float: right;
+	font-size: 1.05em;
+}
+
+.info, .options, .images-nav {
+	margin: 10px 0px;
+}
+
+.images-list li {
+	display: inline;
+	margin-right: 10px;
+}
+
+.images-list li a img {
+	border: 2px solid #FFFFFF;
+}
+
+.images-list li a:hover img {
+	border: 2px solid #5b837f;
+}
+
+#cart-body input[type="text"] {
+	text-align: center;
+	color: #FFFFFF;
+	background: #666666;
+}
+
+#cart-body input[type="text"]:focus {
+	color: #000000;
+	background: #FFFFFF;
+}
+
+#cart-form {
+	margin: 10px;
+}
+
+#cart-table {
+	text-align: center;
+	width: 978px;
+}
+
+#cart-table img {
+	float: left;
+}
+
+#cart-table tr{
+	height: 75px;
+	line-height: 75px;
+}
+
+#cart-footer * {
+	text-align: right;
+}
+
+#cart-footer h3 {
+	margin: 10px 0px;
+}
+
+.cart-total {
+	margin-top: 10px;
+}
+
+#cart-shipping-tax {
+	float: right;
+	width: 998px;
+}
+
+#cart-head tr, .cart-update {
+	background: #000000;
+	color: #FFFFFF;
+	text-transform: uppercase;
+	height: 36px;
+	line-height: 36px;
+}
+
+.cart-update {
+	display: block;
+}
+
+#update-btn-footer {
+	color: #FFFFFF;
+	float: right;
+	height: 36px;
+	line-height: 36px;
+	background: #000000;
+	font-size: .9em;
+	font-weight: 300;
+}
+
+#update-btn-footer:hover {
+	background: #5b837f;
+}
+
+.cart-shipping {
+	float: right;
+}
