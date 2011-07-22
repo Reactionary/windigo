@@ -180,6 +180,10 @@ body.page-template-contact-php #content {
 	background: #333333;
 }
 
+#contact_info {
+	margin: 20px;
+}
+
 body.page-id-340 #content {
 	color: #FFFFFF;
 	background: #333333;
