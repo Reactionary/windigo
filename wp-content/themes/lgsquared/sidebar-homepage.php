@@ -24,7 +24,7 @@
 		            <a href="http://windigosurfboards.com/?page_id=340"><img src="<?php bloginfo('template_directory');?>/images/transworld_banner.jpg" /></a>
 		        </li>
 		        <li class="sidebar-banner">
-		            <a href="http://store.windigointernational.com/products"><img src="<?php bloginfo('template_directory');?>/images/apparel_banner.jpg" /></a>
+		            <a href="http://store.windigosurfboards.com/products"><img src="<?php bloginfo('template_directory');?>/images/apparel_banner.jpg" /></a>
 		        </li>
 		        <li class="sidebar-banner">
 		            <a href="http://hoodratding.com"><img src="<?php bloginfo('template_directory');?>/images/hoodrat_banner.jpg" /></a>

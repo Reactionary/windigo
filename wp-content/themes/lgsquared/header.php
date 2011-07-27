@@ -69,7 +69,7 @@
 		<a id="logo" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"></a>
 		<ul id="nav">
             <li id="boards"><a href="index.php?page_id=63"><span>Boards</span></a></li>
-            <li id="shop"><a href="http://store.windigointernational.com/products"><span>Shop</span></a></li>
+            <li id="shop"><a href="http://store.windigosurfboards.com/products"><span>Shop</span></a></li>
             <li id="contact"><a href="index.php?page_id=15"><span>Contact</span></a></li>
         </ul>
 	</div><!-- #header -->
