@@ -42,7 +42,7 @@ get_header(); ?>
         </div>
 		<div id="container">
 			<div id="content" role="main">
-			    <div class="contentheader"><h2>Blog</h2><!-- <a href="#">Full Blog</a> --></div>
+			    <div class="contentheader"><h2>Latest News</h2><!-- <a href="#">Full Blog</a> --></div>
                 <div id="blogposts">
                     <?php
                     /* Run the loop to output the posts.
