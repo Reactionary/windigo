@@ -1,0 +1,137 @@
+
+/*
+	Style sheet Add Link to Facebook WordPress Plugin
+*/
+
+/* Error/warning messages */
+.al2fb_error {
+	font-weight: bold;
+}
+
+/* Informational messages */
+.al2fb_notice {
+	font-weight: bold;
+}
+
+/* Service messages */
+.al2fb_service {
+}
+
+.al2fb_service_msg {
+}
+
+.al2fb_service_time {
+	font-size: smaller;
+	color: gray;
+}
+
+/* Privacy notice top */
+.al2fb_spsn {
+	font-size: smaller;
+}
+
+/* Resources panel right */
+.al2fb_resources {
+	float: right;
+	padding: 10px;
+	width: 180px;
+	margin-top: 30px;
+	border: 1px solid #CCCCCC;
+	background-color: #FFFEEB;
+}
+
+/* Options panel left */
+.al2fb_options {
+	float: left;
+}
+
+/* Application setup instructions */
+.al2fb_instructions {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+	border: 1px solid #CCCCCC;
+	background-color: #FFFEEB;
+}
+
+.al2fb_instructions h4 {
+	text-decoration: underline;
+}
+
+.al2fb_instructions table {
+	margin-left: 20px;
+}
+
+.al2fb_label {
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+.al2fb_data {
+	text-decoration: italic;
+}
+
+/* Text options */
+.al2fb_text {
+	width: 350px;
+}
+
+/* Numeric options */
+.al2fb_numeric {
+	width: 50px;
+	text-align: right;
+}
+
+.al2fb_select {
+}
+
+/* Option explanation */
+.al2fb_explanation {
+	font-size: smaller;
+}
+
+/* Option borders */
+.al2fb_border {
+	border-width: 1px;
+	border-color: gray;
+	border-style: outset;
+	margin-bottom: 10px;
+}
+
+/* Debug information */
+.al2fb_debug table {
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;
+	margin: 20px 0;
+}
+
+.al2fb_debug th, .al2fb_debug td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: inset;
+	border-color: gray;
+	font-size: smaller;
+}
+
+/* Post meta images */
+.al2fb_image {
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+	border: 1px solid gray;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	padding: 5px;
+}
+
+.al2fb_image input {
+	margin: 0 0 5px 0;
+}
+
+/* Extra CSS */
+#al2fb_css {
+	font-family: monospace;
+}
