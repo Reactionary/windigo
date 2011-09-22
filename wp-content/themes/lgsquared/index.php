@@ -13,7 +13,7 @@ get_header(); ?>
 			<script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
 			
 			<div id="slider" class="nivoSlider">
-			  <a href="http://http://sacredcraftexpo.com/"><img src="images/Banner4.jpg" alt="" /></a>
+			  <a href="http://sacredcraftexpo.com/"><img src="images/Banner4.jpg" alt="" /></a>
 				<a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a>
 			</div>
 			<div id="htmlcaption" class="nivo-html-caption">
