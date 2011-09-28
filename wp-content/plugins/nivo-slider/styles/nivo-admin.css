@@ -1,0 +1,116 @@
+#edit-slug-box,
+#nivo_type_category,
+#nivo_type_captions,
+#minor-publishing {
+    display:none;
+}
+
+.nivoslider-thumbs {
+    list-style:none;
+    padding:3px 0 0 0;
+    margin:0;
+}
+.nivoslider-thumbs li {
+    display:inline-block;
+    position:relative;
+    margin:0;
+}
+.nivoslider-thumbs li img {
+    margin:0 10px 5px 0;
+    background:#fff;
+    border:1px solid #DFDFDF;
+    padding:2px;
+}
+
+#nivoslider-images {
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+#nivoslider-images li {
+    display:inline-block;
+    position:relative;
+    margin:0;
+}
+#nivoslider-images li img {
+    margin:0 10px 10px 0;
+    background:#fff;
+    border:1px solid #DFDFDF;
+    padding:3px;
+    cursor:move;
+}
+#nivoslider-images.ui-sortable-disabled li img {
+    cursor:default;
+}
+#nivoslider-images li a.remove-image {
+    display:block;
+    width:16px;
+    height:16px;
+    background:url(../images/close_16.png) no-repeat;
+    text-indent:-9999px;
+    position:absolute;
+    bottom:16px;
+    right:16px;
+    z-index:10;
+}
+#nivoslider-images li a.edit-image {
+    display:block;
+    width:16px;
+    height:16px;
+    background:url(../images/edit_16.png) no-repeat;
+    text-indent:-9999px;
+    position:absolute;
+    bottom:16px;
+    right:35px;
+    z-index:10;
+}
+#nivoslider-images li.loading {
+    background:url(../images/loading.gif) no-repeat;
+    padding-left:23px;
+    display:block;
+    height:16px;
+    line-height:16px;
+    margin:1em;
+}
+
+.slider-type-category #file-uploader,
+.slider-type-sticky #file-uploader {
+    display:none;
+}
+
+.qq-upload-drop-area {
+    position:relative !important;
+    margin-bottom:10px;
+}
+.qq-upload-button {
+    margin-top:5px;
+}
+.qq-upload-list {
+    list-style:none;
+    padding:0;
+    margin:1em;
+}
+
+#simplemodal-overlay {background-color:#000;}
+#simplemodal-container {width:500px;box-shadow:0 3px 10px #333;}
+#simplemodal-container a.modalCloseImg {background:url(../images/x.png) no-repeat; width:30px; height:30px; display:inline; z-index:3200; position:absolute; top:-11px; right:-11px; cursor:pointer;}
+#nivo-edit-image {
+    background:#fff;
+    padding:15px;
+    display:none;
+}
+#nivo-edit-image p {
+    margin-top:0;
+}
+#nivo-edit-image p.submit {
+    padding:0;
+    margin:20px 0 0 0;
+}
+#nivo-edit-image strong {
+    display:inline-block;
+    font-size:14px;
+}
+#nivo-edit-image strong.loading {
+    background:url(../images/loading.gif) no-repeat 100% 50%;
+    padding-right:30px;
+}
