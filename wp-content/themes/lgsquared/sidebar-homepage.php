@@ -15,7 +15,7 @@
 	 * then the sidebar simply doesn't exist, so we'll hard-code in
 	 * some default sidebar stuff just in case.
 	 */
-	        if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('HomepageSidebar') ) : ?>
+	        if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Homepage Sidebar') ) : ?>
 		    <?php endif; // end primary widget area ?>
 		        <li class="sidebar-banner">
 		            <a href="http://windigosurfboards.com/?page_id=15"><img src="<?php bloginfo('template_directory');?>/images/parlor_banner.jpg" /></a>

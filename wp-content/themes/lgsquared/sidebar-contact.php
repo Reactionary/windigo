@@ -17,7 +17,7 @@
 	 * then the sidebar simply doesn't exist, so we'll hard-code in
 	 * some default sidebar stuff just in case.
 	 */
-	        	if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('ContactSidebar') ) : ?>
+	        	if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Contact Sidebar') ) : ?>
 		    	<?php endif; // end primary widget area ?>
 			</ul>
 		</div><!-- #primary .widget-area -->

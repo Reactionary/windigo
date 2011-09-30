@@ -324,15 +324,57 @@ body.page-id-340 #content {
 
 /* =Content layout
 -------------------------------------------------------------- */
+.postlink {
+	background: #FFFFFF;
+	padding: 5px;
+	margin: 12px;
+}
+
+a:hover .postlink {
+	background: #5b837f;
+	color: #FFFFFF;
+}
+
+a:hover .postlink small {
+	color: #FFFFFF;
+}
+
 .post {
 	border-bottom: 1px solid #FFFFFF;
 	padding: 10px;
-	margin-bottom: 2px;
 }
 
 .post img {
 	border: 2px solid #FFFFFF;
 	margin-bottom: 10px;
+}
+
+.navigation {
+	background: #333333;
+	height: 39px;
+	line-height: 39px;
+}
+
+.navigation .nav-previous a, .navigation .nav-next a {
+	background: #666666;
+	display: block;
+	color: #FFFFFF;
+	padding: 0px 10px;
+	height: 39px;
+}
+
+.navigation .nav-previous a:hover, .navigation .nav-next a:hover {
+	background: #5b837f;
+}
+
+.navigation .nav-previous {
+	border-right: 1px solid #FFFFFF;
+	float: left;
+}
+
+.navigation .nav-next {
+	border-left: 1px solid #FFFFFF;
+	float: right;
 }
 
 /* =Sidebar layout
@@ -344,6 +386,29 @@ body.page-id-340 #content {
 
 .widget {
   border-bottom: 1px solid #FFFFFF;
+}
+
+button, input[type="submit"], a.button {
+	border: none;
+	color: #FFFFFF;
+	font-size: 1.2em;
+	font-weight: bold;
+	line-height: 47px;
+	height: 47px;
+	
+}
+
+.widget ul li a {
+	background: #666666;
+	border-bottom: 1px solid #333333;
+	display: block;
+	color: #FFFFFF;
+	padding: 10px;
+	text-transform: uppercase;
+}
+
+.widget ul li a:hover {
+	background: #5b837f;
 }
 
 .sidebar-banner a {
