@@ -15,7 +15,7 @@ Version: 1.0
 
 get_header(); ?>
         <div id="banner">
-			<img src="<?php bloginfo('template_directory');?>/images/trans_banner.jpg" />
+			<img src="<?php bloginfo('template_directory');?>/images/contact_banner.jpg" />
         </div>
 		<div id="container">
 			<div id="content" role="main">
