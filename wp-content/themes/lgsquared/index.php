@@ -13,7 +13,8 @@ get_header(); ?>
 			<script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
 			
 			<div id="slider" class="nivoSlider">
-				<a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a>
+				<img src="images/Banner6.jpg" alt="" />
+				<!-- <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a> -->
 			</div>
 			<div id="htmlcaption" class="nivo-html-caption">
 			    <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
