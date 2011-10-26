@@ -10,7 +10,7 @@ class qqUploadedFileXhr {
      */
     function save($path) {    
         $input = fopen("php://input", "r");
-        $temp = sys_get_temp_dir();//tmpfile();
+        $temp = tempnam("/tmp", "nivoupload");//tmpfile();
         $realSize = stream_copy_to_stream($input, $temp);
         fclose($input);
         
