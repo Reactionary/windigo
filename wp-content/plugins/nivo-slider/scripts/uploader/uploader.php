@@ -10,7 +10,7 @@ class qqUploadedFileXhr {
      */
     function save($path) {    
         $input = fopen("php://input", "r");
-        $temp = tempnam("/tmp", "nivoupload");//tmpfile();
+        $temp = tempnam("/tmp", "nivo_upload");//tmpfile();
         $realSize = stream_copy_to_stream($input, $temp);
         fclose($input);
         
@@ -23,6 +23,7 @@ class qqUploadedFileXhr {
         stream_copy_to_stream($temp, $target);
         fclose($target);
         
+				unlink($temp);
         return true;
     }
     function getName() {
