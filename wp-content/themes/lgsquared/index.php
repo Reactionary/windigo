@@ -10,38 +10,35 @@ Version: 1.0
 get_header(); ?>
         <div id="banner">
             <link rel="stylesheet" href="<?php bloginfo('template_directory');?>/slider/nivo-slider.css" type="text/css" media="screen" />
-			<script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
-			
-			<div id="slider" class="nivoSlider">
-				<a href="http://turtleneckandsweater.com"><img src="images/Banner8.jpg" alt="9th Annual Turtleneck &amp; Sweater Party" /></a>
-				<!-- <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a> -->
-			</div>
-			<div id="htmlcaption" class="nivo-html-caption">
-			    <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
-			</div>
-			
-			<script type="text/javascript">
-			jQuery(window).load(function() {
-				jQuery('#slider').nivoSlider({
-					effect: '<?php echo get_option('mytheme_effect'); ?>',
-					animSpeed:<?php echo get_option('mytheme_animSpeed'); ?>,
-					pauseTime:<?php echo get_option('mytheme_pauseTime'); ?>,
-					startSlide:<?php echo get_option('mytheme_startSlide'); ?>,
-					slices:<?php echo get_option('mytheme_slices'); ?>,
-					directionNav:<?php echo get_option('mytheme_directionNav'); ?>,
-					directionNavHide:<?php echo get_option('mytheme_directionNavHide'); ?>,
-					controlNav:<?php echo get_option('mytheme_controlNav'); ?>,
-					controlNavThumbs:<?php echo get_option('mytheme_controlNavThumbs'); ?>,
-					keyboardNav:<?php echo get_option('mytheme_keyboardNav'); ?>,
-					pauseOnHover:<?php echo get_option('mytheme_pauseOnHover'); ?>,
-					captionOpacity:<?php echo get_option('mytheme_captionOpacity'); ?>
-				});
-			});
-			</script>
+      <script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+      
+      <div id="slider" class="nivoSlider">
+        <a href="http://windigosurfboards.com/?p=672"><img src="images/Banner11.jpg" alt="Turtleneck &amp; Sweater Party Wrap Up" /></a>
+        <!-- <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a> -->
+      </div>
+      
+      <script type="text/javascript">
+      jQuery(window).load(function() {
+        jQuery('#slider').nivoSlider({
+          effect: '<?php echo get_option('mytheme_effect'); ?>',
+          animSpeed:<?php echo get_option('mytheme_animSpeed'); ?>,
+          pauseTime:<?php echo get_option('mytheme_pauseTime'); ?>,
+          startSlide:<?php echo get_option('mytheme_startSlide'); ?>,
+          slices:<?php echo get_option('mytheme_slices'); ?>,
+          directionNav:<?php echo get_option('mytheme_directionNav'); ?>,
+          directionNavHide:<?php echo get_option('mytheme_directionNavHide'); ?>,
+          controlNav:<?php echo get_option('mytheme_controlNav'); ?>,
+          controlNavThumbs:<?php echo get_option('mytheme_controlNavThumbs'); ?>,
+          keyboardNav:<?php echo get_option('mytheme_keyboardNav'); ?>,
+          pauseOnHover:<?php echo get_option('mytheme_pauseOnHover'); ?>,
+          captionOpacity:<?php echo get_option('mytheme_captionOpacity'); ?>
+        });
+      });
+      </script>
         </div>
-		<div id="container">
-			<div id="content" role="main">
-			    <div class="contentheader"><h2>Latest News</h2><!-- <a href="#">Full Blog</a> --></div>
+    <div id="container">
+      <div id="content" role="main">
+          <div class="contentheader"><h2>Latest News</h2><!-- <a href="#">Full Blog</a> --></div>
                 <div id="blogposts">
                     <?php
                     /* Run the loop to output the posts.
@@ -52,6 +49,6 @@ get_header(); ?>
                     ?>
                 </div>
             </div><!-- #content -->
-		    <?php get_sidebar('homepage'); ?>
-		    <?php get_footer(); ?>
-		</div><!-- #container -->
+        <?php get_sidebar('homepage'); ?>
+        <?php get_footer(); ?>
+    </div><!-- #container -->
