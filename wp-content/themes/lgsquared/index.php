@@ -13,7 +13,7 @@ get_header(); ?>
       <script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
       
       <div id="slider" class="nivoSlider">
-        <a href="http://windigosurfboards.com/?page_id=63"><img src="images/Banner12.jpg" alt="Congratulations Jonas Wingen!" /></a>
+        <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="The Cash - Nathan Colwell" /></a>
         <!-- <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a> -->
       </div>
       
