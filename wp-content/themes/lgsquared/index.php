@@ -13,8 +13,8 @@ get_header(); ?>
       <script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
       
       <div id="slider" class="nivoSlider">
-        <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="The Cash - Nathan Colwell" /></a>
-        <!-- <a href="http://store.windigosurfboards.com/product/cash"><img src="images/Banner5.jpg" alt="" /></a> -->
+        <a href="http://cincodemustache.com"><img src="images/banners/CincoDeMustache.jpg" alt="Cinco De Mustache" /></a>
+        <a href="http://store.windigosurfboards.com/product/cash"><img src="images/banners/Banner5.jpg" alt="The Cash - Nathan Colwell" /></a>
       </div>
       
       <script type="text/javascript">
