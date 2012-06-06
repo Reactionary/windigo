@@ -13,7 +13,7 @@ get_header(); ?>
       <script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
       
       <div id="slider" class="nivoSlider">
-        <a href="http://store.windigosurfboards.com/product/cash"><img src="images/banners/Banner5.jpg" alt="The Cash - Nathan Colwell" /></a>
+        <a href="http://seaworthysurf.com"><img src="images/banners/June_6th_2012.jpg" alt="Windigo Boards at Seaworthy" /></a>
       </div>
       
       <script type="text/javascript">
