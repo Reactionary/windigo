@@ -13,7 +13,7 @@ get_header(); ?>
       <script src="<?php bloginfo('template_directory');?>/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
       
       <div id="slider" class="nivoSlider">
-        <a href="http://seaworthysurf.com"><img src="images/banners/June_6th_2012.jpg" alt="Windigo Boards at Seaworthy" /></a>
+        <a href="http://windigosurfboards.com/?page_id=63"><img src="images/banners/banner5.jpg" alt="The Cash" /></a>
       </div>
       
       <script type="text/javascript">
