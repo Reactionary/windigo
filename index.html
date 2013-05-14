@@ -34,6 +34,22 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 
+	<!-- Scripts
+	================================================== -->
+	<script type="text/javascript">
+		window.onresize = function() {
+			sizeVideo();
+		}
+
+		function sizeVideo() {
+			var video = document.getElementById('video');
+			if (video) {
+				var videoHeight = video.offsetWidth*.5625;
+				video.setAttribute("height", videoHeight);
+			}
+		}
+	</script>
+
 </head>
 <body>
 	<!-- Primary Page Layout
@@ -45,7 +61,7 @@
 				<ul id="nav"></ul>
 			</div>
 			<div id="content" class="sixteen columns">
-				
+				<iframe id="video" onload="sizeVideo()" src="http://player.vimeo.com/video/51237071?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="100%" height="400px" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 			</div>
 		</div>
 	</div>
@@ -68,7 +84,7 @@
 	</div>
 	<div id="footer" class="container">
 		<div id="legal" class="eight columns alpha">
-			<p class="copyright">&copy Windigo Surfboards. All Rights Reserved</p>
+			<p class="copyright">&copy; Windigo Surfboards. All Rights Reserved</p>
 		</div>
 		<ul id="links" class="eight columns omega">
 			<li><a href="#">Privacy</a></li>
