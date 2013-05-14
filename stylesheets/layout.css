@@ -16,6 +16,106 @@
 
 /* #Site Styles
 ================================================== */
+body {
+	background: #000;
+	margin-top: 5px;
+}
+
+h1, h2, h3, h4, h5, p {
+	font-family: "Cabin", sans-serif;
+	text-transform: uppercase;
+}
+
+#main {
+	background: #FFF;
+	width: 100%;
+}
+
+#header {
+	margin-top: 20px;
+	height: 122px;
+	text-align: center;
+}
+
+#content {
+	border-top: 3px solid #000;
+	border-bottom: 3px solid #000;
+	margin-bottom: 17px;
+
+	background: #333;
+	min-height: 400px;
+}
+
+#info, #footer {
+	color: #FFF;
+	margin-top: 30px;
+}
+
+#info .columns {
+	text-align: center;
+	height: 90px;
+}
+
+#connect {
+	border-right: 2px solid #333;
+}
+
+#connect ul.social li {
+	display: inline-block;
+	margin: 10px;
+}
+
+#connect ul.social li a {
+	background: #FFF;
+	display: block;
+	height: 44px;
+	width: 44px;
+	border-radius: 22px;
+}
+
+#connect ul.social li a span {
+	display: none;
+}
+
+#contact {
+	border-left: 2px solid #333;
+}
+
+#info h3 {
+	color: #FFF;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	text-transform: uppercase;
+	line-height: 20px;
+	margin-top: -10px;
+}
+
+#footer {
+	border-top: 4px solid #333;
+	height: 30px;
+}
+
+#legal, #links {
+	height: 22px;
+	line-height: 22px;
+}
+
+#legal {
+	background: url("../images/footer_fork.png") 0 0 no-repeat;
+	padding-left: 22px;
+	margin-right: -22px;
+	text-align: left;
+}
+
+#links {
+	text-align: right;
+}
+
+#links li {
+	display: inline-block;
+}
+
 
 /* #Page Styles
 ================================================== */
