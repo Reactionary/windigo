@@ -66,12 +66,24 @@ h1, h2, h3, h4, h5, p {
 }
 
 #connect ul.social li a {
-	background: #FFF;
+	background-color: #FFF;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
 	display: block;
 	height: 44px;
 	width: 44px;
 	border-radius: 22px;
 }
+
+#connect ul.social li a:hover {
+	background-color: #999;
+}
+
+#connect ul.social li a.vimeo {background-image:url("../images/vimeo_icon.png");}
+#connect ul.social li a.facebook {background-image:url("../images/facebook_icon.png");}
+#connect ul.social li a.twitter {background-image:url("../images/twitter_icon.png");}
+#connect ul.social li a.instagram {background-image:url("../images/instagram_icon.png");}
+#connect ul.social li a.tumblr {background-image:url("../images/tumblr_icon.png");}
 
 #connect ul.social li a span {
 	display: none;
