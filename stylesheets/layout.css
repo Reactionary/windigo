@@ -119,19 +119,21 @@ a:hover {
 }
 
 #legal, #links {
-	height: 22px;
 	line-height: 22px;
 }
 
 #legal {
+	text-align: left;
+}
+
+#legal .copyright {
 	background: url("../images/footer_fork.png") 0 0 no-repeat;
 	padding-left: 22px;
-	margin-right: -22px;
-	text-align: left;
 }
 
 #links {
 	text-align: right;
+	margin-left: 30px;
 }
 
 #links li {
@@ -156,6 +158,14 @@ a:hover {
 		#info .columns {
 			border: none;
 		}
+		#legal, #links {
+			margin: 0px;
+			text-align: center;
+		}
+		#legal .copyright {
+			display: inline-block;
+			margin: 0px auto;
+		}
 	}
 
 	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
@@ -166,6 +176,10 @@ a:hover {
 		#connect ul.social li a {
 			height: 36px;
 			width: 36px;
+		}
+
+		#legal {
+			font-size: 12px;
 		}
 	}
 
