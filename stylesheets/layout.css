@@ -26,6 +26,15 @@ h1, h2, h3, h4, h5, p {
 	text-transform: uppercase;
 }
 
+a {
+	color: #666;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #999;
+}
+
 #main {
 	background: #FFF;
 	width: 100%;
@@ -38,9 +47,12 @@ h1, h2, h3, h4, h5, p {
 }
 
 #content {
+	margin-bottom: 17px;
+}
+
+#video {
 	border-top: 3px solid #000;
 	border-bottom: 3px solid #000;
-	margin-bottom: 17px;
 }
 
 #info, #footer {
@@ -139,13 +151,22 @@ h1, h2, h3, h4, h5, p {
 	@media only screen and (min-width: 768px) and (max-width: 959px) {}
 
 	/* All Mobile Sizes (devices and browser) */
-	@media only screen and (max-width: 767px) {}
+	@media only screen and (max-width: 767px) {
+		#info .columns {
+			border: none;
+		}
+	}
 
 	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 	@media only screen and (min-width: 480px) and (max-width: 767px) {}
 
 	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-	@media only screen and (max-width: 479px) {}
+	@media only screen and (max-width: 479px) {
+		#connect ul.social li a {
+			height: 36px;
+			width: 36px;
+		}
+	}
 
 
 /* #Font-Face
