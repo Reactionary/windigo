@@ -57,12 +57,13 @@ a:hover {
 
 #info, #footer {
 	color: #FFF;
-	margin-top: 30px;
 }
 
 #info .columns {
 	text-align: center;
 	height: 90px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 #connect {
